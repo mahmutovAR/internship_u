@@ -16,6 +16,7 @@ class MenuLinksData:
     blog = "https://www.way2automation.com/blogs/"
     forum = "https://www.way2automation.com/forum/"
     member_login = "https://sso.teachable.com/secure/673/identity/login/otp"
+    all_items = [home, all_courses, video_tutorial, resources, careers, lifetime_membership, blog, forum, member_login]
 
 
 class MenuRedirectData:

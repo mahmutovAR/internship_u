@@ -8,6 +8,7 @@ class MainElementsLocators:
     block_3 = (By.XPATH, '//div[contains(@class, "elementor-container elementor-column-gap-default")]')
     live_trainings = (By.XPATH, '//div[h3="Manual and automation live trainings"]')
     footer = (By.XPATH, '//div[@data-elementor-type="footer"]')
+    all_items = [header, block_1, block_2, block_3, live_trainings, footer]
 
 
 class HeaderLocators:
@@ -32,14 +33,18 @@ class MenuLocators:
     blog = (By.ID, "menu-item-27623")
     forum = (By.ID, "menu-item-27624")
     member_login = (By.ID, "menu-item-27625")
+    all_items = [home, all_courses, video_tutorial, resources, careers, lifetime_membership, blog, forum, member_login]
 
 
 class MenuRedirectLocators:
     all_courses_appium = (By.ID, "menu-item-27585")
     all_courses_appium_python = (By.XPATH, '//a[@href="https://www.way2automation.com/python/training/appium-python-training/"]')
     video_tutorial_spring = (By.XPATH, '//a[@href="https://www.selenium-tutorial.com/p/spring-boot-with-complete-bootcamp"]')
+    video_tutorial_spring_loaded = (By.XPATH, '//footer[@class="bottom-menu bottom-menu-inverse"]')
     resources_site_1 = (By.XPATH, '//a[@href="https://www.way2automation.com/way2auto_jquery/index.php"]')
+    resources_site_1_loaded = (By.ID, 'load_form')
     resources_blog = (By.XPATH, '//a[@href="https://www.selenium-tutorial.com/blog/"]')
+    resources_blog_loaded = (By.XPATH, '//footer[@class="bottom-menu bottom-menu-inverse"]')
 
 
 class CertificationLocators:
@@ -47,6 +52,7 @@ class CertificationLocators:
     online_training = (By.XPATH, '//h3[span=" Online Training "]')
     video_tutorials = (By.XPATH, '//div[contains(h3, "Video Tutorials")]')
     corporate_training = (By.XPATH, '//h3[span=" Corporate Training "]')
+    all_items = [lifetime_membership, online_training, video_tutorials, corporate_training]
 
 
 class PopularCoursesLocators:
@@ -65,3 +71,4 @@ class FooterLocators:
     email_1 = (By.XPATH, '//a[@href="mailto:trainer@way2automation.com"]')
     email_2 = (By.XPATH, '//a[@href="mailto:seleniumcoaching@gmail.com"]')
     info = (By.XPATH, '//div[contains(string(), "Worked with various CMM level orgranizations")]')
+    all_items = [main, about_us, address, phone_1, phone_2, email_1, email_2, info]

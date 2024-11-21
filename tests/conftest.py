@@ -2,6 +2,9 @@ import pytest
 from selenium import webdriver
 
 
+pytest_plugins = 'tests.fixtures'
+
+
 @pytest.fixture
 def browser():
     web_driver = webdriver.Chrome()

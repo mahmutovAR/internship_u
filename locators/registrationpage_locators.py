@@ -1,0 +1,25 @@
+from selenium.webdriver.common.by import By
+
+
+class RegistrationLocators:
+    form = (By.XPATH, '//form[@id="register_form"]')
+    first_name = (By.XPATH, '//p[label="First Name:"]/./input')
+    last_name = (By.XPATH, '//p[label="Last Name:"]/./input')
+    marital_status_single = (By.XPATH, '//label[contains(text(), "Single")]/input')
+    marital_status_married = (By.XPATH, '//label[contains(text(), "Married")]/input')
+    marital_status_divorced = (By.XPATH, '//label[contains(text(), "Divorced")]/input')
+    hobby_dance = (By.XPATH, '//label[contains(text(), "Dance")]/input')
+    hobby_reading = (By.XPATH, '//label[contains(text(), "Reading")]/input')
+    hobby_cricket = (By.XPATH, '//label[contains(text(), "Cricket")]/input')
+    country = (By.XPATH, '//fieldset[label="Country:"]/./select')
+    date_of_birth_month = (By.XPATH, '//div[@class="time_feild"][1]/select')
+    date_of_birth_day = (By.XPATH, '//div[@class="time_feild"][2]/select')
+    date_of_birth_year = (By.XPATH, '//div[@class="time_feild"][3]/select')
+    phone = (By.XPATH, '//fieldset[label="Phone Number:"]/./input')
+    username = (By.XPATH, '//fieldset[label="Username:"]/./input')
+    email = (By.XPATH, '//fieldset[label="E-mail:"]/./input')
+    picture = (By.XPATH, '//fieldset[label="Your Profile Picture"]/./input')
+    about = (By.XPATH, '//fieldset[label="About Yourself"]/./textarea')
+    password = (By.XPATH, '//fieldset[label="Password:"]/./input')
+    confirm_password = (By.XPATH, '//fieldset[label="Confirm Password:"]/./input')
+    submit_button = (By.XPATH, '//input[@type="submit"]')

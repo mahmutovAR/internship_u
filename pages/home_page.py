@@ -13,18 +13,15 @@ from . import BasePage
 
 class Homepage(BasePage):
     def main_elements_are_present(self) -> None:
-        self.element_is_present(MainElementsLocators.header)
-        self.element_is_present(MainElementsLocators.block_1)
-        self.element_is_present(MainElementsLocators.block_2)
-        self.element_is_present(MainElementsLocators.block_3)
-        self.element_is_present(MainElementsLocators.live_trainings)
-        self.element_is_present(MainElementsLocators.footer)
+        self.last_page_element_loaded(self.ads_locator)
+        for locator in MainElementsLocators.all_items:
+            self.element_is_present(locator)
 
 
 class Header(BasePage):
     def data_is_valid(self, locator: tuple[str, str], data: str) -> None:
         self.element_is_present(locator)
-        assert self.browser.find_element(*locator).text == data
+        assert self.get_element_by_locator(locator).text == data
 
     def contact_information_is_present_and_actual(self) -> None:
         self.data_is_valid(HeaderLocators.phone_number_1, HeaderData.phone_number_1)
@@ -42,94 +39,77 @@ class Header(BasePage):
 
 class Menu(BasePage):
     def assert_redirect(self, locator: tuple[str, str], data: str) -> None:
-        self.go_to_homepage()
+        self.get_homepage()
         self.close_ads()
         self.click_element(locator)
-        assert self.browser.current_url == data
+        assert self.get_current_url() == data
 
     def click_menu_items(self) -> None:
-        self.assert_redirect(MenuLocators.home, MenuLinksData.home)
-        self.assert_redirect(MenuLocators.all_courses, MenuLinksData.all_courses)
-        self.assert_redirect(MenuLocators.video_tutorial, MenuLinksData.video_tutorial)
-        self.assert_redirect(MenuLocators.resources, MenuLinksData.resources)
-        self.assert_redirect(MenuLocators.careers, MenuLinksData.careers)
-        self.assert_redirect(MenuLocators.lifetime_membership, MenuLinksData.lifetime_membership)
-        self.assert_redirect(MenuLocators.blog, MenuLinksData.blog)
-        self.assert_redirect(MenuLocators.forum, MenuLinksData.forum)
-        self.assert_redirect(MenuLocators.member_login, MenuLinksData.member_login)
+        for locator, data in zip(MenuLocators.all_items, MenuLinksData.all_items):
+            self.assert_redirect(locator, data)
 
     def element_is_clickable_when_scrolling(self, locator: tuple[str, str]) -> None:
-        self.go_to_homepage()
-        self.browser.execute_script('window.scrollBy(0, 3500);')
+        self.get_homepage()
+        self.scroll_page()
         self.close_ads()
         WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable(locator))
 
     def menu_items_are_clickable_when_scrolling(self) -> None:
-        self.element_is_clickable_when_scrolling(MenuLocators.home)
-        self.element_is_clickable_when_scrolling(MenuLocators.all_courses)
-        self.element_is_clickable_when_scrolling(MenuLocators.video_tutorial)
-        self.element_is_clickable_when_scrolling(MenuLocators.resources)
-        self.element_is_clickable_when_scrolling(MenuLocators.careers)
-        self.element_is_clickable_when_scrolling(MenuLocators.lifetime_membership)
-        self.element_is_clickable_when_scrolling(MenuLocators.blog)
-        self.element_is_clickable_when_scrolling(MenuLocators.forum)
-        self.element_is_clickable_when_scrolling(MenuLocators.member_login)
+        for locator in MenuLocators.all_items:
+            self.element_is_clickable_when_scrolling(locator)
 
     def hover_over_element(self, locator: tuple[str, str]):
         actions = ActionChains(self.browser)
-        element = self.browser.find_element(*locator)
+        element = self.get_element_by_locator(locator)
         actions.move_to_element(element).perform()
 
     def check_link_all_courses_appium_python(self) -> None:
-        self.go_to_homepage()
+        self.get_homepage()
         self.close_ads()
         self.hover_over_element(MenuLocators.all_courses)
         self.hover_over_element(MenuRedirectLocators.all_courses_appium)
         self.click_element(MenuRedirectLocators.all_courses_appium_python)
-        assert self.browser.current_url == MenuRedirectData.all_courses_appium_python
-        self.page_loaded()
+        assert self.get_current_url() == MenuRedirectData.all_courses_appium_python
+        self.last_page_element_loaded(self.ads_locator)
 
     def check_link_video_tutorial_spring(self) -> None:
-        self.go_to_homepage()
+        self.get_homepage()
         self.close_ads()
         self.hover_over_element(MenuLocators.video_tutorial)
         self.click_element(MenuRedirectLocators.video_tutorial_spring)
-        assert self.browser.current_url == MenuRedirectData.video_tutorial_spring
-        self.page_loaded()
+        assert self.get_current_url() == MenuRedirectData.video_tutorial_spring
+        self.last_page_element_loaded(MenuRedirectLocators.video_tutorial_spring_loaded)
 
     def check_resources_site_1(self) -> None:
-        self.go_to_homepage()
+        self.get_homepage()
         self.close_ads()
         self.hover_over_element(MenuLocators.resources)
         self.click_element(MenuRedirectLocators.resources_site_1)
-        assert self.browser.current_url == MenuRedirectData.resources_site_1
-        self.page_loaded()
+        assert self.get_current_url() == MenuRedirectData.resources_site_1
+        self.last_page_element_loaded(MenuRedirectLocators.resources_site_1_loaded)
 
     def check_resources_blog(self) -> None:
-        self.go_to_homepage()
+        self.get_homepage()
         self.close_ads()
         self.hover_over_element(MenuLocators.resources)
         self.click_element(MenuRedirectLocators.resources_blog)
-        assert self.browser.current_url == MenuRedirectData.resources_blog
-        self.page_loaded()
+        assert self.get_current_url() == MenuRedirectData.resources_blog
+        self.last_page_element_loaded(MenuRedirectLocators.resources_blog_loaded)
 
 
 class Certification(BasePage):
     def check_block(self) -> None:
-        self.element_is_present(CertificationLocators.lifetime_membership)
-        self.element_is_present(CertificationLocators.online_training)
-        self.element_is_present(CertificationLocators.video_tutorials)
-        self.element_is_present(CertificationLocators.corporate_training)
+        for locator in CertificationLocators.all_items:
+            self.element_is_present(locator)
 
 
 class PopularCourses(BasePage):
     def check_navigation_button(self, locator: tuple[str, str]):
         self.close_ads()
-        js_scroll_code = "arguments[0].scrollIntoView();"
-        self.browser.execute_script(js_scroll_code, self.browser.find_element(*PopularCoursesLocators.main))
+        self.scroll_to_element(PopularCoursesLocators.main)
 
-        button = self.browser.find_element(*locator)
-        slide = self.browser.find_element(*PopularCoursesLocators.slide)
+        button = self.get_element_by_locator(locator)
+        slide = self.get_element_by_locator(PopularCoursesLocators.slide)
         ini_location = slide.location
         button.click()
         sleep(0.5)
@@ -145,11 +125,5 @@ class PopularCourses(BasePage):
 
 class Footer(BasePage):
     def check_footer(self):
-        self.element_is_present(FooterLocators.main)
-        self.element_is_present(FooterLocators.about_us)
-        self.element_is_present(FooterLocators.address)
-        self.element_is_present(FooterLocators.phone_1)
-        self.element_is_present(FooterLocators.phone_2)
-        self.element_is_present(FooterLocators.email_1)
-        self.element_is_present(FooterLocators.email_2)
-        self.element_is_present(FooterLocators.info)
+        for locator in FooterLocators.all_items:
+            self.element_is_present(locator)
