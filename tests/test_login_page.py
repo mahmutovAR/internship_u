@@ -55,3 +55,12 @@ def test_log_out(browser: fixture, username: str, password: str, username_desc: 
     login_page.go_to_login_page()
     login_page.log_in_valid(username, password, username_desc)
     login_page.log_out()
+
+
+@pytest.mark.parametrize('username, password, username_desc', [('invalid username', 'invalid password', 'angular c'),
+                                                               ('invalid username', 'invalid password', 'angular c'),
+                                                               ('invalid username', 'invalid password', 'angular c'),
+                                                               ('invalid username', 'invalid password', 'angular c'),
+                                                               ('invalid username', 'invalid password', 'angular c'),])
+def test_log_in_invalid_extended(browser: fixture, username: str, password: str, username_desc: str):
+    pass

@@ -48,3 +48,29 @@ def test_fill_out_form(browser: fixture, form_data: fixture):
     login_page.take_screenshot()
     login_page.submit_data()
     login_page.assert_page_reloaded()
+
+
+@severity(severity_level.MINOR)
+@allure.epic("UI testing")
+@allure.feature("Registration Form")
+@allure.story("Log in")
+@allure.title("Test failure screenshot")
+@allure.description(
+    """
+    Task: Log out Registration Form
+
+    SetUp:
+        - open browser
+
+    Steps:
+         1. Open "Registration Form" url
+         2. Try to find element by invalid locator
+         3. Take screenshot of test failure
+
+    Expected result:
+        - test failed, screenshot taken""")
+def test_fill_out_form(browser: fixture, form_data: fixture):
+    """Fills the registration form with the generated data."""
+    login_page = RegistrationPage(browser)
+    login_page.go_to_form_page()
+    login_page.find_not_existing_element()

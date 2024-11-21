@@ -94,3 +94,9 @@ class RegistrationPage(BasePage):
         with allure.step('Page reloaded'):
             assert self.get_current_url() == self.registration_page
             self.wait_for_visibility(RegistrationLocators.form)
+
+    def find_not_existing_element(self):
+        with allure.step('Try to find element by invalid locator'):
+            invalid_locator = (By.ID, 'element not found')
+            self.get_element_by_locator(invalid_locator)
+
