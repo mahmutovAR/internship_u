@@ -1,37 +1,15 @@
 import platform
-from os import environ
+from dotenv import load_dotenv
+
 from os import system as os_system
 from os.path import join as os_path_join
 from webbrowser import open as open_report
 
-from faker import Faker
-
-
-def set_env_var():
-    """Sets Environment Variables."""
-    # check if EnvVar are set:
-    fake = Faker()
-    try:
-        environ['REG_FORM_USERNAME']
-    except KeyError:
-        environ['REG_FORM_USERNAME'] = fake.user_name()
-
-    try:
-        environ['REG_FORM_PASSWORD']
-    except KeyError:
-        environ['REG_FORM_PASSWORD'] = fake.password()
-
-
-    # set EnvVar only for test run:
-    # fake = Faker()
-    # environ['REG_FORM_USERNAME'] = fake.user_name()
-    # environ['REG_FORM_PASSWORD'] = fake.password()
-
 
 def main():
-    set_env_var()
+    load_dotenv()
 
-    os_system('pytest tests/test_registration_form.py --alluredir=allure-results --clean-alluredir')
+    os_system('pytest tests/ -n 4 --alluredir=allure-results --clean-alluredir')
 
     env_data = [f'os_platform = {platform.system()}\n',
                 f'os_release = {platform.release()}\n',

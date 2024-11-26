@@ -1,1 +1,2 @@
-from .homepage_data import HeaderData, MenuLinksData, MenuRedirectData
+from .page_data import HeaderData, LoginData
+from .page_urls import URL, MenuUrls

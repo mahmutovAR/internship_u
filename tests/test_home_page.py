@@ -1,65 +1,135 @@
+import allure
+from allure import severity_level
 from pytest import fixture
 
-from pages import (Homepage, Header, Menu, Certification,
-                   PopularCourses, Footer)
+from data import HeaderData
+from pages import Homepage, Header, Certification, PopularCourses
 
 
+@allure.severity(severity_level.BLOCKER)
+@allure.epic("Тестирование www.way2automation.com")
+@allure.feature("Homepage")
+@allure.testcase(None, "Задача U1")
+@allure.story("UI")
+@allure.title("Проверка открытия страницы")
+@allure.description(
+    """
+    Цель: Проверка открытия страницы
+
+    Предусловие:
+        - Открыть браузер
+
+    Шаги:
+         1. Открыть домашнюю страницу
+
+    Ожидаемый результат:
+        - Значение "TITLE" соответствует домашней странице
+        - Элементы, уникальные для этой страницы, активны""")
 def test_homepage(browser: fixture):
-    """Checks that the home page loads and that basic elements are present.
-    1.1 Проверка открытия страницы
-    - Страница загружается успешно.
-    - Все основные элементы отображаются корректно."""
     homepage = Homepage(browser)
-    homepage.get_homepage()
-    homepage.main_elements_are_present()
+    homepage.open_homepage()
+    title = homepage.get_page_title()
+    expected_title = "Get Online Selenium Certification Course | Way2Automation"
+    assert title == expected_title, f'Expected "{expected_title}" title, but got "{title}"'
+    homepage.main_elements_are_active()
 
 
+@allure.severity(severity_level.NORMAL)
+@allure.epic("Тестирование www.way2automation.com")
+@allure.feature("Homepage")
+@allure.testcase(None, "Задача U1")
+@allure.story("UI")
+@allure.title("Проверка Header")
+@allure.description(
+    """
+    Цель: Проверка данных в Header
+
+    Предусловие:
+        - Открыть браузер
+
+    Шаги:
+         1. Открыть домашнюю страницу
+
+    Ожидаемый результат:
+        - Номера телефонов и ссылки для связи кликабельны
+        - Контактные номера и ссылки для связи корректны""")
 def test_header(browser: fixture):
-    """Checks header with contact information.
-    1.2 Проверка хедера с контактной информацией
-    - Хедер содержит номера телефонов и ссылки для связи, и они кликабельны.
-    - Проверка отображения и корректности контактной информации:
-    убедиться, что все контактные номера и ссылки для связи актуальны."""
     header = Header(browser)
-    header.get_homepage()
-    header.contact_information_is_present_and_actual()
-    header.social_networks_are_present()
+    header.open_homepage()
+    header.contact_links__are_clickable()
+    phone_1 = header.get_phone_number_1()
+    phone_2 = header.get_phone_number_2()
+    phone_3 = header.get_phone_number_3()
+    skype = header.get_skype()
+    email = header.get_email()
+    assert phone_1 == HeaderData.phone_1, f'Expected "{HeaderData.phone_1}" data, but got {phone_1}'
+    assert phone_2 == HeaderData.phone_2, f'Expected "{HeaderData.phone_2}" data, but got {phone_2}'
+    assert phone_3 == HeaderData.phone_3, f'Expected "{HeaderData.phone_3}" data, but got {phone_3}'
+    assert skype == HeaderData.skype, f'Expected "{HeaderData.skype}" data, but got {skype}'
+    assert email == HeaderData.email, f'Expected "{HeaderData.email}" data, but got {email}'
 
 
-def test_menu(browser: fixture):
-    """Checks that menu elements are present.
-    1.3 Проверка выпадающих списков
-    - Функциональность: при клике на каждый пункт меню происходит переход на соответствующую страницу."""
-    menu = Menu(browser)
-    menu.get_homepage()
-    menu.click_menu_items()
+@allure.severity(severity_level.MINOR)
+@allure.epic("Тестирование www.way2automation.com")
+@allure.feature("Homepage")
+@allure.testcase(None, "Задача U1")
+@allure.story("UI")
+@allure.title("Проверка блока с сертификацией")
+@allure.description(
+    """
+    Цель: Проверка блока с сертификацией
 
+    Предусловие:
+        - Открыть браузер
 
+    Шаги:
+         1. Открыть домашнюю страницу
+
+    Ожидаемый результат:
+        - Заголовок каждого блока корректен
+        - Ссылка кнопки "Read More" каждого блока корректна""")
 def test_certification_block(browser: fixture):
     """Checks Certification block.
     1.4 Блок с сертификацией (Best Selenium Certification Course Online)
     - Блок с сертификацией присутствует и отображается корректно."""
     certification = Certification(browser)
-    certification.get_homepage()
-    certification.check_block()
+    certification.open_homepage()
+    certification.check_lifetime_membership()
+    certification.check_online_training()
+    certification.check_video_tutorials()
+    certification.check_corporate_training()
 
 
+@allure.severity(severity_level.MINOR)
+@allure.epic("Тестирование www.way2automation.com")
+@allure.feature("Homepage")
+@allure.testcase(None, "Задача U1")
+@allure.story("UI")
+@allure.title("Проверка блока с курсами")
+@allure.description(
+    """
+    Цель: Проверка блока с курсами
+
+    Предусловие:
+        - Открыть браузер
+
+    Шаги:
+         1. Открыть домашнюю страницу
+         2. Прокрутить страницу до слайдов
+         3. Нажать кнопку навигации "Назад"
+         4. Нажать кнопку навигации "Вперед"
+
+    Ожидаемый результат:
+        - Положение слайда изменилось после нажатия кнопок навигации""")
 def test_popular_courses_slider(browser: fixture):
-    """Checks navigation buttons.
-    1.5 Блок с курсами (Most Popular Software Testing Courses)
-    Проверка кнопок навигации (вперед и назад): они работают корректно и меняют слайды."""
     slider = PopularCourses(browser)
-    slider.get_homepage()
-    slider.check_previous_course_button()
-    slider.check_next_course_button()
-
-
-def test_footer(browser: fixture):
-    """Checks the footer for company information and contacts.
-    1.6 Футер
-    - Футер отображается корректно и содержит:
-        - Ссылки на социальные сети.
-        - Информацию о компании, контактные данные."""
-    footer = Footer(browser)
-    footer.get_homepage()
-    footer.check_footer()
+    slider.open_homepage()
+    slider.scroll_to_slider()
+    ini_location = slider.get_slide_location()
+    slider.click_previous_button()
+    location = slider.get_slide_location()
+    assert ini_location != location, 'The slider was expected to move, but the location did not change'
+    ini_location = slider.get_slide_location()
+    slider.click_next_button()
+    location = slider.get_slide_location()
+    assert ini_location != location, 'The slider was expected to move, but the location did not change'

@@ -1,63 +1,68 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver import ActionChains
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.remote.webelement import WebElement
 
 
 class BasePage:
-    def __init__(self, browser):
-        self.browser = browser
-        self.homepage = 'https://www.way2automation.com/'
-        self.login_page = 'https://www.way2automation.com/angularjs-protractor/registeration/#/login'
-        self.registration_page = 'https://www.way2automation.com/way2auto_jquery/registration.php#load_box'
-        self.ads_locator = (By.XPATH, '//div[@class="elementor-widget-wrap elementor-element-populated lazyloaded"]')
+    def __init__(self, driver):
+        self.driver = driver
 
-    def get_homepage(self) -> None:
-        self.browser.get(self.homepage)
+    def open_url(self, url: str) -> None:
+        self.driver.get(url)
 
-    def get_login_page(self) -> None:
-        self.browser.get(self.login_page)
+    def get_element_by_locator(self, locator: tuple[str, str]) -> WebElement | None:
+        try:
+            element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
+        except:
+            return None
+        else:
+            return element
 
-    def get_registration_page(self) -> None:
-        self.browser.get(self.registration_page)
-
-    def get_element_by_locator(self, locator: tuple[str, str]) -> WebElement:
-        return self.browser.find_element(*locator)
+    def send_keys_to_element(self, locator: tuple[str, str], data: str) -> None:
+        self.get_element_by_locator(locator).send_keys(data)
 
     def get_current_url(self) -> str:
-        return self.browser.current_url
+        return self.driver.current_url
 
-    def scroll_to_element(self, locator: tuple[str, str]):
+    def get_page_title(self) -> str:
+        return self.driver.title
+
+    def get_element_text(self, locator: tuple[str, str]) -> str:
+        return self.get_element_by_locator(locator).text
+
+    def get_nested_element_text(self, element: tuple[str, str], nested_element: tuple[str, str]) -> str:
+        parent_element = self.get_element_by_locator(element)
+        return parent_element.find_element(*nested_element).text
+
+    def get_nested_element_link(self, element: tuple[str, str], nested_element: tuple[str, str]) -> str:
+        parent_element = self.get_element_by_locator(element)
+        return parent_element.find_element(*nested_element).get_attribute('href')
+
+    def scroll_to_element(self, locator: tuple[str, str]) -> None:
         js_code = "arguments[0].scrollIntoView();"
-        self.browser.execute_script(js_code, self.browser.find_element(*locator))
+        self.driver.execute_script(js_code, self.driver.find_element(*locator))
 
-    def scroll_page(self):
-        self.browser.execute_script("window.scrollBy(0, 3500);")
-
-    def close_ads(self) -> None:
-        body = self.browser.find_element(By.TAG_NAME, 'body')
-        body.send_keys(Keys.PAGE_DOWN)
-        body.send_keys(Keys.PAGE_UP)
-        from time import sleep
-        sleep(6)
-        body.send_keys(Keys.ESCAPE)
-
-        # body = self.browser.find_element(By.TAG_NAME, 'body')
-        # body.send_keys(Keys.PAGE_DOWN)
-        # body.send_keys(Keys.PAGE_UP)
-        # ads = (By.XPATH, '//a[@class="dialog-close-button dialog-lightbox-close-button"]')
-        # WebDriverWait(self.browser, 10).until(EC.visibility_of_element_located(ads))
-        # self.browser.find_element(*ads).click()
+    def element_is_clickable(self, locator: tuple[str, str]) -> WebElement | None:
+        try:
+            element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(locator))
+        except:
+            return None
+        else:
+            return element
 
     def click_element(self, locator: tuple[str, str]) -> None:
-        WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable(locator)).click()
+        self.element_is_clickable(locator).click()
 
-    def wait_for_visibility(self, locator: tuple[str, str]) -> None:
-        WebDriverWait(self.browser, 10).until(EC.visibility_of_element_located(locator))
+    def element_is_visible(self, locator: tuple[str, str]) -> bool:
+        try:
+            WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+        except:
+            return False
+        else:
+            return True
 
-    def last_page_element_loaded(self, locator: tuple[str, str]) -> None:
-        self.browser.find_element(*locator)
-
-    def element_is_present(self, locator: tuple[str, str]) -> None:
-        WebDriverWait(self.browser, 10).until(EC.visibility_of_element_located(locator))
+    def hover_over_element(self, locator: tuple[str, str]):
+        actions = ActionChains(self.driver)
+        element = self.get_element_by_locator(locator)
+        actions.move_to_element(element).perform()

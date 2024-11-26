@@ -23,3 +23,4 @@ class RegistrationLocators:
     password = (By.XPATH, '//fieldset[label="Password:"]/./input')
     confirm_password = (By.XPATH, '//fieldset[label="Confirm Password:"]/./input')
     submit_button = (By.XPATH, '//input[@type="submit"]')
+    error = (By.XPATH, '//label[@class="error_p"]')

@@ -1,14 +1,9 @@
 from selenium.webdriver.common.by import By
 
 
-class MainElementsLocators:
-    header = (By.ID, 'masthead')
-    block_1 = (By.XPATH, '//div[contains(@class, "ast-primary-header-bar ast-primary-header main-header-bar site-header-focus-item")]')
-    block_2 = (By.XPATH, '//div[contains(@class, "elementor-widget-wrap elementor-element-populated")]')
-    block_3 = (By.XPATH, '//div[contains(@class, "elementor-container elementor-column-gap-default")]')
-    live_trainings = (By.XPATH, '//div[h3="Manual and automation live trainings"]')
-    footer = (By.XPATH, '//div[@data-elementor-type="footer"]')
-    all_items = [header, block_1, block_2, block_3, live_trainings, footer]
+class UniqueElementsLocators:
+    link_about_us = (By.XPATH, '//a[@href="https://www.way2automation.com/about-us/"]')
+    link_view_all_images = (By.XPATH, '//a[@href="https://www.way2automation.com/about-us/#gallery"]')
 
 
 class HeaderLocators:
@@ -21,9 +16,13 @@ class HeaderLocators:
     linkedin = (By.XPATH, '//a[@href="https://in.linkedin.com/in/rahul-arora-0490b751"]')
     plus_google = (By.XPATH, '//a[@href="https://plus.google.com/u/0/+RamanAhujatheseleniumguru"]')
     youtube = (By.XPATH, '//a[@href="https://www.youtube.com/c/seleniumappiumtutorialtraining"]')
+    all_items = [phone_number_1, phone_number_2, phone_number_3, skype, email,
+                 facebook, linkedin, plus_google, youtube]
 
 
 class MenuLocators:
+    footer = (By.XPATH, '//div[@data-elementor-type="footer"]')
+    main = (By.XPATH, '//div[@class="main-navigation ast-inline-flex"]')
     home = (By.XPATH, '//a[@href="https://www.way2automation.com/"]')
     all_courses = (By.ID, "menu-item-27580")
     video_tutorial = (By.ID, "menu-item-27597")
@@ -38,37 +37,31 @@ class MenuLocators:
 
 class MenuRedirectLocators:
     all_courses_appium = (By.ID, "menu-item-27585")
-    all_courses_appium_python = (By.XPATH, '//a[@href="https://www.way2automation.com/python/training/appium-python-training/"]')
-    video_tutorial_spring = (By.XPATH, '//a[@href="https://www.selenium-tutorial.com/p/spring-boot-with-complete-bootcamp"]')
-    video_tutorial_spring_loaded = (By.XPATH, '//footer[@class="bottom-menu bottom-menu-inverse"]')
-    resources_site_1 = (By.XPATH, '//a[@href="https://www.way2automation.com/way2auto_jquery/index.php"]')
-    resources_site_1_loaded = (By.ID, 'load_form')
-    resources_blog = (By.XPATH, '//a[@href="https://www.selenium-tutorial.com/blog/"]')
-    resources_blog_loaded = (By.XPATH, '//footer[@class="bottom-menu bottom-menu-inverse"]')
+    all_courses_appium_python = (By.ID, 'menu-item-27587')
+    appium_python_link_1 = (By.XPATH, '//a[@href="https://www.way2automation.com/buynow-lifetime/"]')
+    appium_python_link_2 = (By.XPATH, '//a[@href="https://www.selenium-tutorial.com/p/selenium-webdriver-with-python-and-robot-framework"]')
+    video_tutorial_spring = (By.ID, 'menu-item-27615')
+    spring_boot_link = (By.ID, "enroll-button-top")
+    spring_boot_text_1 = (By.XPATH, '//div[@class="faq-question"]')
+    spring_boot_text_2 = (By.XPATH, '//div[@class="checkout-cta"]')
 
 
 class CertificationLocators:
-    lifetime_membership = (By.XPATH, '//h3[span=" Lifetime Membership "]')
-    online_training = (By.XPATH, '//h3[span=" Online Training "]')
-    video_tutorials = (By.XPATH, '//div[contains(h3, "Video Tutorials")]')
-    corporate_training = (By.XPATH, '//h3[span=" Corporate Training "]')
-    all_items = [lifetime_membership, online_training, video_tutorials, corporate_training]
+    lifetime_membership = (By.XPATH, '//div[@data-id="94bce2e"]')
+    lifetime_membership_button = (By.XPATH, '//div[@data-id="72a13c4"]')
+
+    online_training = (By.XPATH, '//div[@data-id="442c7c2"]')
+    online_training_button = (By.XPATH, '//div[@data-id="513609a"]')
+
+    video_tutorials = (By.XPATH, '//div[@data-id="a4dfd3d"]')
+    video_tutorials_button = (By.XPATH, '//div[@data-id="05f99df"]')
+
+    corporate_training = (By.XPATH, '//div[@data-id="ee9b1e1"]')
+    corporate_training_button = (By.XPATH, '//div[@data-id="03c01c9"]')
 
 
 class PopularCoursesLocators:
     main = (By.XPATH, '//div[@data-id="c50f9f0"]')
     slide = (By.XPATH, '//div[contains(h4, "Selenium Web Driver with Java (Basics + Advance + Architect)")]')
-    prev_slide = (By.XPATH, '//div[contains(@class, "pp-slider-arrow") and contains(@aria-label, "Previous slide")]')
-    next_slide = (By.XPATH, '//div[contains(@class, "pp-slider-arrow") and contains(@aria-label, "Next slide")]')
-
-
-class FooterLocators:
-    main = (By.XPATH, '//div[@data-elementor-type="footer"]')
-    about_us = (By.XPATH, '//div[h4="ABOUT US "]')
-    address = (By.XPATH, '//li[contains(string(), "CDR Complex, 3rd Floor, Naya Bans Market")]')
-    phone_1 = (By.XPATH, '//a[@href="tel:9711111558"]')
-    phone_2 = (By.XPATH, '//a[@href="tel:9711191558"]')
-    email_1 = (By.XPATH, '//a[@href="mailto:trainer@way2automation.com"]')
-    email_2 = (By.XPATH, '//a[@href="mailto:seleniumcoaching@gmail.com"]')
-    info = (By.XPATH, '//div[contains(string(), "Worked with various CMM level orgranizations")]')
-    all_items = [main, about_us, address, phone_1, phone_2, email_1, email_2, info]
+    prev_slide = (By.XPATH, '//div[@class="pp-slider-arrow swiper-button-prev swiper-button-prev-c50f9f0"]')
+    next_slide = (By.XPATH, '//div[@class="pp-slider-arrow swiper-button-next swiper-button-next-c50f9f0"]')

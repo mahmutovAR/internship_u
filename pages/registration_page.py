@@ -1,96 +1,98 @@
-from os import environ
-from os.path import join as os_path_join
-from pathlib import Path
-
 import allure
-from allure_commons.types import AttachmentType
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
+from data import URL
 from locators import RegistrationLocators
 from . import BasePage
 
 
 class RegistrationPage(BasePage):
-
-    def go_to_form_page(self):
-        with allure.step('Open "Registration Form" url'):
-            self.get_registration_page()
-            self.wait_for_visibility(RegistrationLocators.form)
+    def open_form_page(self):
+        with allure.step('Открыть страницу с формой'):
+            self.open_url(URL.registration_page)
 
     def fill_in_field(self, field_locator: tuple[str, str], data: str):
-        self.get_element_by_locator(field_locator).send_keys(data)
-
-    def select_marital_status(self, marital_status: str):
-        if marital_status.lower() == 'single':
-            self.get_element_by_locator(RegistrationLocators.marital_status_single).click()
-        elif marital_status.lower() == 'married':
-            self.get_element_by_locator(RegistrationLocators.marital_status_married).click()
-        elif marital_status.lower() == 'divorced':
-            self.get_element_by_locator(RegistrationLocators.marital_status_divorced).click()
-        else:
-            assert False, 'Invalid "Marital status"'
-
-    def select_hobby(self, hobby: list):
-        if 'dance' in hobby:
-            self.get_element_by_locator(RegistrationLocators.hobby_dance).click()
-        if 'reading' in hobby:
-            self.get_element_by_locator(RegistrationLocators.hobby_reading).click()
-        if 'cricket' in hobby:
-            self.get_element_by_locator(RegistrationLocators.hobby_cricket).click()
+        self.send_keys_to_element(field_locator, data)
 
     def select_list_value(self, list_locator: tuple[str, str], value: str):
         select = Select(self.get_element_by_locator(list_locator))
         select.select_by_value(value)
 
-    def fill_out_form(self, data):
-        with allure.step('Fill in "First Name" field'):
-            self.fill_in_field(RegistrationLocators.first_name, data.first_name)
-        with allure.step('Fill in "Last Name" field'):
-            self.fill_in_field(RegistrationLocators.last_name, data.last_name)
-        with allure.step('Select "Marital Status"'):
-            self.select_marital_status(data.marital_status)
-        with allure.step('Select "Hobby"'):
-            if data.hobby:
-                self.select_hobby(data.hobby)
-        with allure.step('Select "Country" from drop down list'):
-            self.select_list_value(RegistrationLocators.country, 'India')
-        with allure.step('Select "Month" of "Date of Birth" from drop down list'):
-            self.select_list_value(RegistrationLocators.date_of_birth_month, '1')
-        with allure.step('Select "Day" of "Date of Birth" from drop down list'):
-            self.select_list_value(RegistrationLocators.date_of_birth_day, '1')
-        with allure.step('Select "Year" of "Date of Birth" from drop down list'):
-            self.select_list_value(RegistrationLocators.date_of_birth_year, '2014')
-        with allure.step('Fill in "Phone Number" field'):
-            self.fill_in_field(RegistrationLocators.phone, data.phone)
-        with allure.step('Fill in "Username" field'):
-            self.fill_in_field(RegistrationLocators.username, environ['REG_FORM_USERNAME'])
-        with allure.step('Fill in "E-mail" field'):
-            self.fill_in_field(RegistrationLocators.email, data.email)
-        with allure.step('Choose "Your Profile Picture"'):
-            picture_path = os_path_join(Path(__file__).resolve().parents[1], 'tests', 'picture', 'ebersteiger.jpg')
-            self.get_element_by_locator(RegistrationLocators.picture).send_keys(picture_path)
-        with allure.step('Fill in "About Yourself" field'):
-            self.fill_in_field(RegistrationLocators.about, data.about)
-        with allure.step('Fill in "Password" field'):
-            self.fill_in_field(RegistrationLocators.password, environ['REG_FORM_PASSWORD'])
-        with allure.step('Fill in "Confirm Password" field'):
-            self.fill_in_field(RegistrationLocators.confirm_password, environ['REG_FORM_PASSWORD'])
+    def fill_first_name(self, first_name: str):
+        with allure.step('Заполнить поле "First Name"'):
+            self.fill_in_field(RegistrationLocators.first_name, first_name)
 
-    def take_screenshot(self):
-        with allure.step('Take a screenshot'):
-            body = self.get_element_by_locator((By.TAG_NAME, 'body'))
-            body.send_keys(Keys.PAGE_DOWN)
-            allure.attach(self.browser.get_screenshot_as_png(),
-                          name="Registration form filled",
-                          attachment_type=AttachmentType.PNG)
+    def fill_last_name(self, last_name: str):
+        with allure.step('Заполнить поле "Last Name"'):
+            self.fill_in_field(RegistrationLocators.last_name, last_name)
+
+    def select_marital_status(self, marital_status: str):
+        with allure.step('Выбрать "Marital Status"'):
+            if marital_status.lower() == 'single':
+                self.click_element(RegistrationLocators.marital_status_single)
+            elif marital_status.lower() == 'married':
+                self.click_element(RegistrationLocators.marital_status_married)
+            elif marital_status.lower() == 'divorced':
+                self.click_element(RegistrationLocators.marital_status_divorced)
+            else:
+                assert False, 'Invalid "Marital status"'
+
+    def select_hobby(self, hobby: list):
+        with allure.step('Выбрать "Hobby"'):
+            if 'dance' in hobby:
+                self.click_element(RegistrationLocators.hobby_dance)
+            if 'reading' in hobby:
+                self.click_element(RegistrationLocators.hobby_reading)
+            if 'cricket' in hobby:
+                self.click_element(RegistrationLocators.hobby_cricket)
+
+    def select_country(self, country: str):
+        with allure.step('Выбрать "Country" из выпадающего списка'):
+            self.select_list_value(RegistrationLocators.country, country)
+
+    def select_birth_month(self, month: str):
+        with allure.step('Выбрать "Month" поля "Date of Birth" из выпадающего списка'):
+            self.select_list_value(RegistrationLocators.date_of_birth_month, month)
+
+    def select_birth_day(self, day: str):
+        with allure.step('Выбрать "Day" поля "Date of Birth" из выпадающего списка'):
+            self.select_list_value(RegistrationLocators.date_of_birth_day, day)
+
+    def select_birth_year(self, year: str):
+        with allure.step('Выбрать "Year" поля "Date of Birth" из выпадающего списка'):
+            self.select_list_value(RegistrationLocators.date_of_birth_year, year)
+
+    def fill_phone(self, phone: str):
+        with allure.step('Заполнить поле "Phone Number"'):
+            self.fill_in_field(RegistrationLocators.phone, phone)
+
+    def fill_username(self, username: str):
+        with allure.step('Заполнить поле "Username"'):
+            self.fill_in_field(RegistrationLocators.username, username)
+
+    def fill_email(self, email: str):
+        with allure.step('Заполнить поле "E-mail"'):
+            self.fill_in_field(RegistrationLocators.email, email)
+
+    def choose_picture(self, picture: str):
+        with allure.step('Загрузить изображение в поле "Your Profile Picture"'):
+            self.send_keys_to_element(RegistrationLocators.picture, picture)
+
+    def fill_about(self, about: str):
+        with allure.step('Заполнить поле "About Yourself"'):
+            self.fill_in_field(RegistrationLocators.about, about)
+
+    def fill_password(self, password: str):
+        with allure.step('Заполнить поле "Password"'):
+            self.fill_in_field(RegistrationLocators.password, password)
+
+    def fill_confirm_password(self, confirm_password: str):
+        with allure.step('Заполнить поле "Confirm Password"'):
+            self.fill_in_field(RegistrationLocators.confirm_password, confirm_password)
 
     def submit_data(self):
         with allure.step('Submit data'):
-            self.get_element_by_locator(RegistrationLocators.submit_button).submit()
+            self.click_element(RegistrationLocators.submit_button)
 
-    def assert_page_reloaded(self):
-        with allure.step('Page reloaded'):
-            assert self.get_current_url() == self.registration_page
-            self.wait_for_visibility(RegistrationLocators.form)
+    def no_error_found(self):
+        assert not self.element_is_visible(RegistrationLocators.error), 'Expected that no error message are displayed'
