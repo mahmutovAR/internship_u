@@ -24,15 +24,15 @@ from pages import RegistrationPage
         - Открыть браузер
 
     Шаги:
-         1. Открыть страницу с формой
-         2. Заполнить поле "First Name"
-         3. Заполнить поле "Last Name"
-         4. Выбрать "Marital Status"
-         5. Выбрать "Hobby"
-         6. Выбрать "Country" из выпадающего списка
-         7. Выбрать "Month" поля "Date of Birth" из выпадающего списка
-         8. Выбрать "Day" поля "Date of Birth" из выпадающего списка
-         9. Выбрать "Year" поля "Date of Birth" из выпадающего списка
+        1. Открыть страницу с формой
+        2. Заполнить поле "First Name"
+        3. Заполнить поле "Last Name"
+        4. Выбрать "Marital Status"
+        5. Выбрать "Hobby"
+        6. Выбрать "Country" из выпадающего списка
+        7. Выбрать "Month" поля "Date of Birth" из выпадающего списка
+        8. Выбрать "Day" поля "Date of Birth" из выпадающего списка
+        9. Выбрать "Year" поля "Date of Birth" из выпадающего списка
         10. Заполнить поле "Phone Number"
         11. Заполнить поле "Username"
         12. Заполнить поле "E-mail"
@@ -43,7 +43,7 @@ from pages import RegistrationPage
         18. Нажать на кнопку "SUBMIT"
 
     Ожидаемый результат:
-            - Нет сообщений о некорректном вводе данных""")
+        - Нет сообщений о некорректном вводе данных""")
 @pytest.mark.parametrize('registration_form_data',
                          [{'marital_status': choice(['single', 'married', 'divorced']),
                            'hobby': sample(['dance', 'reading', 'cricket'], k=randrange(1, 3)),
@@ -53,11 +53,10 @@ from pages import RegistrationPage
                            'date_of_birth_year': 2014,
                            'picture_path': os_path_join(dirname(abspath(__file__)), 'picture', 'ebersteiger.jpg')}],
                          indirect=True)
-def test_fill_out_form(browser: fixture, registration_form_data: fixture, request):
+def test_fill_out_form(browser: fixture, registration_form_data: fixture):
     login_page = RegistrationPage(browser)
     login_page.open_form_page()
     form_data = registration_form_data
-
     login_page.fill_first_name(form_data.first_name)
     login_page.fill_last_name(form_data.last_name)
     login_page.select_marital_status(form_data.marital_status)

@@ -1,9 +1,9 @@
 import platform
-from dotenv import load_dotenv
-
 from os import system as os_system
 from os.path import join as os_path_join
 from webbrowser import open as open_report
+
+from dotenv import load_dotenv
 
 
 def main():

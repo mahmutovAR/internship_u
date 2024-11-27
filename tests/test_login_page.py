@@ -21,14 +21,14 @@ from pages import LoginPage
         - Открыть браузер
 
     Шаги:
-         1. Открыть страницу с формой
-         2. Проверить наличие поля ввода "Username"
-         3. Проверить наличие поля ввода "Password"
-         4. Проверить наличие поля ввода "Username *"
+        1. Открыть страницу с формой
+        2. Проверить наличие поля ввода "Username"
+        3. Проверить наличие поля ввода "Password"
+        4. Проверить наличие поля ввода "Username *"
 
     Ожидаемый результат:
         - Поля отображаются
-        - Описания полей соответствуют им""")
+        - Описания соответствуют полям""")
 def test_login_page(browser: fixture):
     login_page = LoginPage(browser)
     login_page.open_login_page()
@@ -54,11 +54,11 @@ def test_login_page(browser: fixture):
         - Открыть браузер
 
     Шаги:
-         1. Открыть страницу с формой
-         2. Кликнуть поле ввода "Username"
-         3. Кликнуть поле ввода "Password"
-         4. Кликнуть поле ввода "Username *"
-         5. Кликнуть в пустую часть страницы
+        1. Открыть страницу с формой
+        2. Кликнуть поле ввода "Username"
+        3. Кликнуть поле ввода "Password"
+        4. Кликнуть поле ввода "Username *"
+        5. Кликнуть в пустую часть страницы
 
     Ожидаемый результат:
         - Ошибки валидации отображаются для незаполненных полей
@@ -92,11 +92,11 @@ def test_empty_form(browser: fixture):
         - Открыть браузер
 
     Шаги:
-         1. Открыть страницу с формой
-         2. Ввести данные в поле "Username"
-         3. Ввести данные в поле "Password"
-         4. Ввести данные в поле "Username *"
-         5. Кликнуть кнопку "Login"
+        1. Открыть страницу с формой
+        2. Ввести данные в поле "Username"
+        3. Ввести данные в поле "Password"
+        4. Ввести данные в поле "Username *"
+        5. Кликнуть кнопку "Login"
 
     Ожидаемый результат:
         - Отображается сообщение об успешной авторизации""")
@@ -128,14 +128,14 @@ def test_log_in(browser: fixture, username: str, password: str, username_desc: s
         - Открыть браузер
 
     Шаги:
-         1. Открыть страницу с формой
-         2. Ввести данные в поле "Username"
-         3. Ввести данные в поле "Password"
-         4. Ввести данные в поле "Username *"
-         5. Кликнуть кнопку "Login"
+        1. Открыть страницу с формой
+        2. Ввести данные в поле "Username"
+        3. Ввести данные в поле "Password"
+        4. Ввести данные в поле "Username *"
+        5. Кликнуть кнопку "Login"
 
     Ожидаемый результат:
-        - отображается сообщение об ошибке""")
+        - Отображается сообщение об ошибке""")
 @pytest.mark.parametrize('username, password, username_desc', [('invalid username', 'invalid password', 'username-C')])
 def test_log_in_invalid(browser: fixture, username: str, password: str, username_desc: str):
     login_page = LoginPage(browser)
@@ -163,18 +163,18 @@ def test_log_in_invalid(browser: fixture, username: str, password: str, username
         - Открыть браузер
 
     Шаги:
-         1. Открыть страницу с формой
-         2. Ввести данные в поле "Username"
-         3. Ввести данные в поле "Password"
-         4. Ввести данные в поле "Username *"
-         5. Кликнуть кнопку "Login"
-         6. Кликнуть кнопку "Logout"
-         7. Проверить наличие поля ввода "Username"
-         8. Проверить наличие поля ввода "Password"
-         9. Проверить наличие поля ввода "Username *"
+        1. Открыть страницу с формой
+        2. Ввести данные в поле "Username"
+        3. Ввести данные в поле "Password"
+        4. Ввести данные в поле "Username *"
+        5. Кликнуть кнопку "Login"
+        6. Кликнуть кнопку "Logout"
+        7. Проверить наличие поля ввода "Username"
+        8. Проверить наличие поля ввода "Password"
+        9. Проверить наличие поля ввода "Username *"
 
     Ожидаемый результат:
-        - Отображается поля для входа""")
+        - Отображаются поля для входа""")
 @pytest.mark.parametrize('username, password, username_desc',
                          [(LoginData.username, LoginData.password, f'{LoginData.username}-AB')])
 def test_log_out(browser: fixture, username: str, password: str, username_desc: str):
