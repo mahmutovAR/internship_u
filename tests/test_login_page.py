@@ -8,11 +8,11 @@ from pages import LoginPage
 
 
 @allure.severity(severity_level.BLOCKER)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Login Page")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Проверка полей формы")
+@allure.epic("Smoke тест")
+@allure.feature("Авторизация")
+@allure.testcase("Задачи U1, U2")
+@allure.story("Страница загружается успешно, основные элементы отображаются корректно")
+@allure.title("Авторизация на странице Login Page")
 @allure.description(
     """
     Цель: Проверить поля ввода
@@ -25,6 +25,9 @@ from pages import LoginPage
         2. Проверить наличие поля ввода "Username"
         3. Проверить наличие поля ввода "Password"
         4. Проверить наличие поля ввода "Username *"
+        5. Проверить описание поля "Username"
+        6. Проверить описание поля "Password"
+        7. Проверить описание поля "Username *"
 
     Ожидаемый результат:
         - Поля отображаются
@@ -32,20 +35,17 @@ from pages import LoginPage
 def test_login_page(browser: fixture):
     login_page = LoginPage(browser)
     login_page.open_login_page()
-    username_label = login_page.find_username_field()
-    password_label = login_page.find_password_field()
-    username_desc_label = login_page.find_username_desc_field()
-    assert username_label == 'Username', f'Expected label is "Username", but got {username_label}'
-    assert password_label == 'Password', f'Expected label is "Password", but got {password_label}'
-    assert username_desc_label == 'Username *', f'Expected label is "Username *", but got {username_desc_label}'
+    login_page.check_username_field_label()
+    login_page.check_password_field_label()
+    login_page.check_username_desc_field_label()
 
 
 @allure.severity(severity_level.NORMAL)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Login Page")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Проверка отправки пустой формы")
+@allure.epic("Smoke тест")
+@allure.feature("Авторизация")
+@allure.testcase("Задачи U1, U2")
+@allure.story("Отправка пустой формы невозможна")
+@allure.title("Авторизация на странице Login Page")
 @allure.description(
     """
     Цель: Проверить отправку пустой формы
@@ -59,6 +59,10 @@ def test_login_page(browser: fixture):
         3. Кликнуть поле ввода "Password"
         4. Кликнуть поле ввода "Username *"
         5. Кликнуть в пустую часть страницы
+        6. Проверить сообщение с ошибкой незаполненного поля "Username"
+        7. Проверить сообщение с ошибкой незаполненного поля "Password"
+        8. Проверить цвет описания поля "Username *"
+        9. Проверить, что кнопка "Login" не активна
 
     Ожидаемый результат:
         - Ошибки валидации отображаются для незаполненных полей
@@ -70,20 +74,17 @@ def test_empty_form(browser: fixture):
     login_page.click_password_field()
     login_page.click_username_desc_field()
     login_page.click_somewhere()
-    expected_color = 'rgba(169, 68, 66, 1)'  # RGB value for #a94442
-    field_color = login_page.check_username_desc_color()
-    assert login_page.check_username_error(), 'Expected "Username" field error message'
-    assert login_page.check_password_error(), 'Expected "Password" field error message'
-    assert field_color == expected_color, f'Expected "Username *" field changes color to {expected_color}, but got {field_color}'
-    assert not login_page.check_login_button_is_enabled(), f'Expected "Login" button is disabled'
+    login_page.check_username_error()
+    login_page.check_password_error()
+    login_page.check_username_desc_error()
 
 
 @allure.severity(severity_level.CRITICAL)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Login Page")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Проверка успешной авторизации")
+@allure.epic("Smoke тест")
+@allure.feature("Авторизация")
+@allure.testcase("Задачи U1, U2")
+@allure.story("Авторизация с корректными данными проходит успешно")
+@allure.title("Авторизация на странице Login Page")
 @allure.description(
     """
     Цель: Проверить авторизацию
@@ -97,8 +98,10 @@ def test_empty_form(browser: fixture):
         3. Ввести данные в поле "Password"
         4. Ввести данные в поле "Username *"
         5. Кликнуть кнопку "Login"
+        6. Проверить, что отображается сообщение об успешной авторизации
 
     Ожидаемый результат:
+        - Авторизация прошла успешно
         - Отображается сообщение об успешной авторизации""")
 @pytest.mark.parametrize('username, password, username_desc',
                          [(LoginData.username, LoginData.password, f'{LoginData.username}-AB')])
@@ -109,20 +112,18 @@ def test_log_in(browser: fixture, username: str, password: str, username_desc: s
     login_page.fill_password(password)
     login_page.fill_username_desc(username_desc)
     login_page.click_login_button()
-    expected_message = "You're logged in!!"
-    auth_message = login_page.assert_auth_success()
-    assert auth_message == expected_message, f'Expected {expected_message} message, but got {auth_message}'
+    login_page.assert_auth_success()
 
 
 @allure.severity(severity_level.CRITICAL)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Login Page")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Проверка авторизации с невалидными данными")
+@allure.epic("Smoke тест")
+@allure.feature("Авторизация")
+@allure.testcase("Задачи U1, U2, U3")
+@allure.story("Авторизация с некорректными данными не проходит")
+@allure.title("Авторизация на странице Login Page")
 @allure.description(
     """
-    Цель: Проверить авторизацию с невалидными данными
+    Цель: Проверить авторизацию с некорректными данными
 
     Предусловие:
         - Открыть браузер
@@ -133,10 +134,14 @@ def test_log_in(browser: fixture, username: str, password: str, username_desc: s
         3. Ввести данные в поле "Password"
         4. Ввести данные в поле "Username *"
         5. Кликнуть кнопку "Login"
+        6. Проверить, что отображается сообщение о ошибке авторизации
 
     Ожидаемый результат:
         - Отображается сообщение об ошибке""")
-@pytest.mark.parametrize('username, password, username_desc', [('invalid username', 'invalid password', 'username-C')])
+@pytest.mark.parametrize('username, password, username_desc',
+                         [('invalid username', 'invalid password', 'username-C', ),
+                          (LoginData.username, 'invalid password', f'{LoginData.username}-AB'),
+                          ('invalid username', LoginData.password, f'{LoginData.username}-AB')])
 def test_log_in_invalid(browser: fixture, username: str, password: str, username_desc: str):
     login_page = LoginPage(browser)
     login_page.open_login_page()
@@ -144,17 +149,57 @@ def test_log_in_invalid(browser: fixture, username: str, password: str, username
     login_page.fill_password(password)
     login_page.fill_username_desc(username_desc)
     login_page.click_login_button()
-    expected_message = "Username or password is incorrect"
-    auth_message = login_page.assert_auth_error()
-    assert auth_message == expected_message, f'Expected {expected_message} message, but got {auth_message}'
+    login_page.assert_auth_error()
+
+
+@allure.severity(severity_level.CRITICAL)
+@allure.epic("Smoke тест")
+@allure.feature("Авторизация")
+@allure.testcase("Задачи U1, U2, U3")
+@allure.story("Авторизация с некорректными данными с проверкой ошибок")
+@allure.title("Авторизация на странице Login Page")
+@allure.description(
+    """
+    Цель: Проверить авторизацию с некорректными данными
+
+    Предусловие:
+        - Открыть браузер
+
+    Шаги:
+        1. Открыть страницу с формой
+        2. Ввести данные в поле "Username"
+        3. Ввести данные в поле "Password"
+        4. Ввести данные в поле "Username *"
+        5. Кликнуть в пустую часть страницы
+        6. Проверить, что отображаются сообщения о некорректном вводе
+
+    Ожидаемый результат:
+        - Отображаются соответствующие сообщения об ошибке
+        - Кнопка "Login" не активна""")
+@pytest.mark.parametrize('username, password, username_desc, username_error, password_error, username_desc_error',
+                         [('ab', 'abcdefg', 'abcdefg', True, False, False),
+                          ('ab', 'ab', 'abcdefg', True, True, False),
+                          ('ab', 'ab', 'ab', True, True, True),
+                          ('abcdefg', 'ab', 'abcdefg', False, True, False),
+                          ('abcdefg', 'abcdefg', 'ab', False, False, True),
+                          ('ab', 'ab', 'ab', True, True, True)])
+def test_log_in_invalid_extended(browser: fixture, username: str, password: str, username_desc: str,
+                                 username_error: bool, password_error: bool, username_desc_error: bool):
+    login_page = LoginPage(browser)
+    login_page.open_login_page()
+    login_page.fill_username(username)
+    login_page.fill_password(password)
+    login_page.fill_username_desc(username_desc)
+    login_page.click_somewhere()
+    login_page.assert_field_error(username_error, password_error, username_desc_error)
 
 
 @allure.severity(severity_level.NORMAL)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Login Page")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Проверка успешного разлогирования")
+@allure.epic("Smoke тест")
+@allure.feature("Авторизация")
+@allure.testcase("Задачи U1, U2")
+@allure.story("Авторизация с корректными данными и успешное разлогирование")
+@allure.title("Авторизация на странице Login Page")
 @allure.description(
     """
     Цель: Проверить разлогирование
@@ -185,9 +230,6 @@ def test_log_out(browser: fixture, username: str, password: str, username_desc: 
     login_page.fill_username_desc(username_desc)
     login_page.click_login_button()
     login_page.click_logout_button()
-    username_label = login_page.find_username_field()
-    password_label = login_page.find_password_field()
-    username_desc_label = login_page.find_username_desc_field_after_logout()
-    assert username_label == 'Username', f'Expected label is "Username", but got {username_label}'
-    assert password_label == 'Password', f'Expected label is "Password", but got {password_label}'
-    assert username_desc_label == 'Username *', f'Expected label is "Username *", but got {username_desc_label}'
+    login_page.check_username_field_label()
+    login_page.check_password_field_label()
+    login_page.check_username_desc_field_label_after_logout()

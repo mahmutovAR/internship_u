@@ -1,7 +1,7 @@
 import allure
 from selenium.webdriver.support.ui import Select
 
-from data import URL
+from data import PageUrls
 from locators import RegistrationLocators
 from . import BasePage
 
@@ -9,10 +9,7 @@ from . import BasePage
 class RegistrationPage(BasePage):
     def open_form_page(self):
         with allure.step('Открыть страницу с формой'):
-            self.open_url(URL.registration_page)
-
-    def fill_in_field(self, field_locator: tuple[str, str], data: str):
-        self.send_keys_to_element(field_locator, data)
+            self.open_url(PageUrls.registration_page)
 
     def select_list_value(self, list_locator: tuple[str, str], value: str):
         select = Select(self.get_element_by_locator(list_locator))
@@ -20,11 +17,11 @@ class RegistrationPage(BasePage):
 
     def fill_first_name(self, first_name: str):
         with allure.step('Заполнить поле "First Name"'):
-            self.fill_in_field(RegistrationLocators.first_name, first_name)
+            self.send_keys_to_element(RegistrationLocators.first_name, first_name)
 
     def fill_last_name(self, last_name: str):
         with allure.step('Заполнить поле "Last Name"'):
-            self.fill_in_field(RegistrationLocators.last_name, last_name)
+            self.send_keys_to_element(RegistrationLocators.last_name, last_name)
 
     def select_marital_status(self, marital_status: str):
         with allure.step('Выбрать "Marital Status"'):
@@ -64,15 +61,15 @@ class RegistrationPage(BasePage):
 
     def fill_phone(self, phone: str):
         with allure.step('Заполнить поле "Phone Number"'):
-            self.fill_in_field(RegistrationLocators.phone, phone)
+            self.send_keys_to_element(RegistrationLocators.phone, phone)
 
     def fill_username(self, username: str):
         with allure.step('Заполнить поле "Username"'):
-            self.fill_in_field(RegistrationLocators.username, username)
+            self.send_keys_to_element(RegistrationLocators.username, username)
 
     def fill_email(self, email: str):
         with allure.step('Заполнить поле "E-mail"'):
-            self.fill_in_field(RegistrationLocators.email, email)
+            self.send_keys_to_element(RegistrationLocators.email, email)
 
     def choose_picture(self, picture: str):
         with allure.step('Загрузить изображение в поле "Your Profile Picture"'):
@@ -80,19 +77,20 @@ class RegistrationPage(BasePage):
 
     def fill_about(self, about: str):
         with allure.step('Заполнить поле "About Yourself"'):
-            self.fill_in_field(RegistrationLocators.about, about)
+            self.send_keys_to_element(RegistrationLocators.about, about)
 
     def fill_password(self, password: str):
         with allure.step('Заполнить поле "Password"'):
-            self.fill_in_field(RegistrationLocators.password, password)
+            self.send_keys_to_element(RegistrationLocators.password, password)
 
     def fill_confirm_password(self, confirm_password: str):
         with allure.step('Заполнить поле "Confirm Password"'):
-            self.fill_in_field(RegistrationLocators.confirm_password, confirm_password)
+            self.send_keys_to_element(RegistrationLocators.confirm_password, confirm_password)
 
     def submit_data(self):
-        with allure.step('Submit data'):
+        with allure.step('Нажать на кнопку "SUBMIT"'):
             self.click_element(RegistrationLocators.submit_button)
 
     def no_error_found(self):
-        assert not self.element_is_visible(RegistrationLocators.error), 'Expected that no error message are displayed'
+        with allure.step('Проверить отсутствие сообщений об ошибках'):
+            assert not self.element_is_visible(RegistrationLocators.error), 'Expected that no error message are displayed'

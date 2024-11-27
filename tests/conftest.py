@@ -25,16 +25,8 @@ def browser():
 def pytest_runtest_makereport(item, call):
     if call.excinfo is not None:
         driver = item.funcargs.get('browser')
-        take_screenshot(driver, 'Скриншот упавшего теста', 'Test failure screenshot')
-
-    elif call.when == 'call':
-        driver = item.funcargs.get('browser')
-        take_screenshot(driver, 'Скриншот пройденного теста', 'Test passed screenshot')
-
-
-def take_screenshot(driver: webdriver, allure_step: str, name: str):
-    if driver:
-        with allure.step(allure_step):
-            allure.attach(driver.get_screenshot_as_png(),
-                          name=name,
-                          attachment_type=AttachmentType.PNG)
+        if driver:
+            with allure.step('Скриншот упавшего теста'):
+                allure.attach(driver.get_screenshot_as_png(),
+                              name='Test failure screenshot',
+                              attachment_type=AttachmentType.PNG)

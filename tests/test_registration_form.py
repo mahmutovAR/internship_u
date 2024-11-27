@@ -11,11 +11,11 @@ from pages import RegistrationPage
 
 
 @allure.severity(severity_level.CRITICAL)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Registration Form")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Заполнение формы")
+@allure.epic("Smoke тест")
+@allure.feature("Авторизация")
+@allure.testcase("Задача U1, U2, U3")
+@allure.story("Авторизация с корректными данными проходит успешно")
+@allure.title("Авторизация на странице Registration Page")
 @allure.description(
     """
     Цель: Проверить заполнение формы
@@ -41,6 +41,7 @@ from pages import RegistrationPage
         15. Заполнить поле "Password"
         16. Заполнить поле "Confirm Password"
         18. Нажать на кнопку "SUBMIT"
+        19. Проверить отсутствие сообщений об ошибках
 
     Ожидаемый результат:
         - Нет сообщений о некорректном вводе данных""")

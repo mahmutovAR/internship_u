@@ -7,11 +7,11 @@ from pages import RegistrationPage, LoginPage, Menu
 
 
 @allure.severity(severity_level.MINOR)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Test failure screenshot")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Скриншот упавшего теста")
+@allure.epic("Smoke тест")
+@allure.feature("Скриншот упавшего теста")
+@allure.testcase("Задачи U1, U2, U4")
+@allure.story("При падении теста делается скриншот")
+@allure.title("Авторизация на странице Registration Page")
 @allure.description(
     """
     Цель: Проверить обработку упавших тестов
@@ -20,12 +20,12 @@ from pages import RegistrationPage, LoginPage, Menu
         - Открыть браузер
 
     Шаги:
-        1. Открыть страницу с формой "Registration Form"
+        1. Открыть страницу с формой
         2. Нажать на кнопку "SUBMIT"
+        3. Проверить отсутствие сообщений об ошибках
 
     Ожидаемый результат:
-        - Вывод сообщений под пустыми полями
-        - Сделан скриншот упавшего теста""")
+        - Нет сообщений о некорректном вводе данных""")
 def test_fill_out_form(browser: fixture):
     login_page = RegistrationPage(browser)
     login_page.open_form_page()
@@ -34,11 +34,11 @@ def test_fill_out_form(browser: fixture):
 
 
 @allure.severity(severity_level.MINOR)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Test failure screenshot")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Скриншот упавшего теста")
+@allure.epic("Smoke тест")
+@allure.feature("Скриншот упавшего теста")
+@allure.testcase("Задачи U1, U2, U4")
+@allure.story("При падении теста делается скриншот")
+@allure.title("Авторизация на странице Login Page")
 @allure.description(
     """
     Цель: Проверить обработку упавших тестов
@@ -47,15 +47,16 @@ def test_fill_out_form(browser: fixture):
         - Открыть браузер
 
     Шаги:
-        1. Открыть страницу с формой "Login Page"
-        2. Ввести некорректные данные в поле "Username"
-        3. Ввести некорректные данные в поле "Password"
+        1. Открыть страницу с формой
+        2. Ввести данные в поле "Username"
+        3. Ввести данные в поле "Password"
         4. Ввести данные в поле "Username *"
         5. Кликнуть кнопку "Login"
+        6. Проверить, что отображается сообщение об успешной авторизации
 
     Ожидаемый результат:
-        - Авторизация не прошла
-        - Сделан скриншот упавшего теста""")
+        - Авторизация прошла успешно
+        - Отображается сообщение об успешной авторизации""")
 @pytest.mark.parametrize('username, password, username_desc', [('invalid username', 'invalid password', 'username-C')])
 def test_log_in(browser: fixture, username: str, password: str, username_desc: str):
     login_page = LoginPage(browser)
@@ -64,20 +65,18 @@ def test_log_in(browser: fixture, username: str, password: str, username_desc: s
     login_page.fill_password(password)
     login_page.fill_username_desc(username_desc)
     login_page.click_login_button()
-    expected_message = "You're logged in!!"
-    auth_message = login_page.assert_auth_success()
-    assert auth_message == expected_message, f'Expected {expected_message} message, but got {auth_message}'
+    login_page.assert_auth_success()
 
 
 @allure.severity(severity_level.MINOR)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Test failure screenshot")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
-@allure.title("Скриншот упавшего теста")
+@allure.epic("Smoke тест")
+@allure.feature("Скриншот упавшего теста")
+@allure.testcase("Задачи U1, U2, U4")
+@allure.story("При падении теста делается скриншот")
+@allure.title("Переход по меню на другие страницы")
 @allure.description(
     """
-    Цель: Проверить обработку упавших тестов
+    Цель: Проверка перехода по меню на другие страницы
 
     Предусловие:
         - Открыть браузер
@@ -85,14 +84,20 @@ def test_log_in(browser: fixture, username: str, password: str, username_desc: s
     Шаги:
         1. Открыть домашнюю страницу
         2. Навести курсор на вкладку меню "All Courses"
+        3. Кликнуть пункт "Appium"
+        4. Кликнуть пункт "Appium with Python"
+        5. Проверить переход на страницу
+        6. Проверить значение "TITLE"
+        7. Проверить корректность отображения элементов страницы
 
     Ожидаемый результат:
-        - Переход на другую страницу не произошел
-        - Сделан скриншот упавшего теста""")
+        - Происходит переход на страницу
+        - Значение "TITLE" соответствует странице
+        - Элементы, уникальные для этой страницы, активны""")
 def test_redirect_to_appium_python(browser: fixture):
     menu = Menu(browser)
     menu.open_homepage()
     menu.hover_over_all_courses()
     menu.assert_redirection_to_appium_python()
+    menu.check_page_title("Appium Python Online Training in USA, India | Way2Automation")
     menu.appium_python_elements_are_active()
-

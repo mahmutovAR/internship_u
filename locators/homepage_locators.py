@@ -7,17 +7,18 @@ class UniqueElementsLocators:
 
 
 class HeaderLocators:
-    phone_number_1 = (By.XPATH, '//a[@href="https://wa.me/+919711111558"]')
-    phone_number_2 = (By.XPATH, '//a[@href="https://wa.me/+919711191558"]')
-    phone_number_3 = (By.XPATH, '//a[@href="tel:+16464800603"]')
+    phone_1 = (By.XPATH, '//a[@href="https://wa.me/+919711111558"]')
+    phone_2 = (By.XPATH, '//a[@href="https://wa.me/+919711191558"]')
+    phone_3 = (By.XPATH, '//a[@href="tel:+16464800603"]')
     skype = (By.XPATH, '//a[@href="skype:seleniumcoaching?chat"]')
     email = (By.XPATH, '//a[@href="mailto:trainer@way2automation.com"]')
     facebook = (By.XPATH, '//a[@href="https://www.facebook.com/way2automation"]')
     linkedin = (By.XPATH, '//a[@href="https://in.linkedin.com/in/rahul-arora-0490b751"]')
     plus_google = (By.XPATH, '//a[@href="https://plus.google.com/u/0/+RamanAhujatheseleniumguru"]')
     youtube = (By.XPATH, '//a[@href="https://www.youtube.com/c/seleniumappiumtutorialtraining"]')
-    all_items = [phone_number_1, phone_number_2, phone_number_3, skype, email,
+    all_items = [phone_1, phone_2, phone_3, skype, email,
                  facebook, linkedin, plus_google, youtube]
+    contacts = [phone_1, phone_2, phone_3, skype, email]
 
 
 class MenuLocators:

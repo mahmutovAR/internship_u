@@ -1,3 +1,5 @@
+import allure
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,7 +16,7 @@ class BasePage:
     def get_element_by_locator(self, locator: tuple[str, str]) -> WebElement | None:
         try:
             element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
-        except:
+        except TimeoutException:
             return None
         else:
             return element
@@ -26,7 +28,8 @@ class BasePage:
         return self.driver.current_url
 
     def get_page_title(self) -> str:
-        return self.driver.title
+        with allure.step('Получить значение "TITLE"'):
+            return self.driver.title
 
     def get_element_text(self, locator: tuple[str, str]) -> str:
         return self.get_element_by_locator(locator).text
@@ -43,21 +46,21 @@ class BasePage:
         js_code = "arguments[0].scrollIntoView();"
         self.driver.execute_script(js_code, self.driver.find_element(*locator))
 
-    def element_is_clickable(self, locator: tuple[str, str]) -> WebElement | None:
+    def get_clickable_element(self, locator: tuple[str, str]) -> WebElement | None:
         try:
             element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(locator))
-        except:
+        except TimeoutException:
             return None
         else:
             return element
 
     def click_element(self, locator: tuple[str, str]) -> None:
-        self.element_is_clickable(locator).click()
+        self.get_clickable_element(locator).click()
 
     def element_is_visible(self, locator: tuple[str, str]) -> bool:
         try:
             WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
-        except:
+        except TimeoutException:
             return False
         else:
             return True

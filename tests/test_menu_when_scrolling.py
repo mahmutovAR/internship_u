@@ -6,10 +6,10 @@ from pages import Menu
 
 
 @allure.severity(severity_level.MINOR)
-@allure.epic("Тестирование www.way2automation.com")
-@allure.feature("Homepage")
-@allure.testcase(None, "Задача U1")
-@allure.story("UI")
+@allure.epic("Smoke тест")
+@allure.feature("Загрузка страницы")
+@allure.testcase("Задача U1, U2")
+@allure.story("Пункты меню отображаются и кликабельны при скроллинге")
 @allure.title("Проверка поведения основного меню")
 @allure.description(
     """
@@ -21,6 +21,7 @@ from pages import Menu
     Шаги:
         1. Открыть домашнюю страницу
         2. Прокрутить страницу до блока "Footer"
+        3. Проверить, что основные пункты меню отображаются и кликабельны
 
     Ожидаемый результат:
         - Все основные пункты меню отображаются и кликабельны""")
