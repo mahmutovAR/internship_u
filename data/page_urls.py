@@ -5,6 +5,7 @@ class PageUrls:
     homepage = getenv('HOME_PAGE')
     login_page = getenv('LOGIN_PAGE')
     registration_page = getenv('REGISTRATION_PAGE')
+    auth_cookies = getenv('AUTH_COOKIES_PAGE')
 
 
 class MenuUrls:

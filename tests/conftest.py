@@ -21,6 +21,14 @@ def browser():
     driver.quit()
 
 
+@pytest.fixture(scope="function")
+def browser_with_window():
+    driver = webdriver.Chrome()
+    driver.set_window_size(1600, 1200)
+    yield driver
+    driver.quit()
+
+
 @pytest.hookimpl(tryfirst=True)
 def pytest_runtest_makereport(item, call):
     if call.excinfo is not None:
@@ -28,5 +36,11 @@ def pytest_runtest_makereport(item, call):
         if driver:
             with allure.step('Скриншот упавшего теста'):
                 allure.attach(driver.get_screenshot_as_png(),
+                              name='Test failure screenshot',
+                              attachment_type=AttachmentType.PNG)
+        driver_2 = item.funcargs.get('browser_with_window')
+        if driver_2:
+            with allure.step('Скриншот упавшего теста'):
+                allure.attach(driver_2.get_screenshot_as_png(),
                               name='Test failure screenshot',
                               attachment_type=AttachmentType.PNG)
