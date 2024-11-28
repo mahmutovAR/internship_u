@@ -13,7 +13,7 @@ from pages import RegistrationPage
 @allure.severity(severity_level.CRITICAL)
 @allure.epic("Smoke тест")
 @allure.feature("Авторизация")
-@allure.testcase("Задача U1, U2, U3")
+@allure.testcase("Задача U1, U2")
 @allure.story("Авторизация с корректными данными проходит успешно")
 @allure.title("Авторизация на странице Registration Page")
 @allure.description(

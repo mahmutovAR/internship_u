@@ -77,6 +77,7 @@ def test_empty_form(browser: fixture):
     login_page.check_username_error()
     login_page.check_password_error()
     login_page.check_username_desc_error()
+    login_page.check_login_button_is_not_enabled()
 
 
 @allure.severity(severity_level.CRITICAL)
@@ -118,7 +119,7 @@ def test_log_in(browser: fixture, username: str, password: str, username_desc: s
 @allure.severity(severity_level.CRITICAL)
 @allure.epic("Smoke тест")
 @allure.feature("Авторизация")
-@allure.testcase("Задачи U1, U2, U3")
+@allure.testcase("Задачи U1, U2")
 @allure.story("Авторизация с некорректными данными не проходит")
 @allure.title("Авторизация на странице Login Page")
 @allure.description(
@@ -155,7 +156,7 @@ def test_log_in_invalid(browser: fixture, username: str, password: str, username
 @allure.severity(severity_level.CRITICAL)
 @allure.epic("Smoke тест")
 @allure.feature("Авторизация")
-@allure.testcase("Задачи U1, U2, U3")
+@allure.testcase("Задачи U1, U2")
 @allure.story("Авторизация с некорректными данными с проверкой ошибок")
 @allure.title("Авторизация на странице Login Page")
 @allure.description(
