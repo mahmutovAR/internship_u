@@ -1,0 +1,7 @@
+allure-pytest==2.13.5
+Faker==33.0.0
+pytest==8.3.1
+pytest-xdist==3.6.1
+python-dotenv==1.0.1
+selenium==4.26.1
+webdriver-manager==4.0.2
