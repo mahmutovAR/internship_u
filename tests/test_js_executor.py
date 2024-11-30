@@ -55,8 +55,8 @@ def test_remove_focus(browser: fixture):
 
     Ожидаемый результат:
         - Определение наличия скролла на странице""")
-def test_page_has_scroll(browser_with_window: fixture):
-    registration_page = RegistrationPage(browser_with_window)
+def test_page_has_scroll(browser: fixture):
+    registration_page = RegistrationPage(browser)
     registration_page.open_form_page()
     registration_page.assert_page_scroll()
 

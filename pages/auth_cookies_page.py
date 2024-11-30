@@ -1,44 +1,58 @@
-import pickle
-from os.path import abspath, dirname, isfile
-from os.path import join as os_path_join
-
 import allure
 
 from data import PageUrls
 from locators import AuthCookiesLocators
+from tests.cookie_helper import CookieHelper
 from . import BasePage
 
 
+cookie_helper = CookieHelper()
+
+
 class AuthCookiesPage(BasePage):
-    def open_login_page(self) -> None:
+    def open_auth_page(self) -> None:
         with allure.step('Открыть страницу с формой'):
-            self.open_url(PageUrls.auth_cookies)
+            self.open_url(PageUrls.auth_cookies_page)
 
-    def fill_login(self, login: str) -> None:
-        with allure.step('Ввести данные в поле "Login"'):
-            self.send_keys_to_element(AuthCookiesLocators.login, login)
+    def check_auth_form(self) -> None:
+        with allure.step('Проверить, что доступны поля авторизации'):
+            self.element_is_visible(AuthCookiesLocators.login)
+            self.element_is_visible(AuthCookiesLocators.password)
+            self.element_is_visible(AuthCookiesLocators.enter_button)
+            self.element_is_visible(AuthCookiesLocators.enter_without_login)
 
-    def fill_password(self, password: str) -> None:
-        with allure.step('Ввести данные в поле "Password"'):
-            self.send_keys_to_element(AuthCookiesLocators.password, password)
+    def click_enter_without_login_button(self) -> None:
+        with allure.step('Кликнуть кнопку "Enter without login"'):
+            self.click_element(AuthCookiesLocators.enter_without_login)
 
-    def click_enter_button(self) -> None:
-        with allure.step('Кликнуть кнопку "Enter"'):
-            self.click_element(AuthCookiesLocators.enter_button)
+    def check_guest_authentication(self) -> None:
+        with allure.step('Проверить, что авторизация прошла под именем "guest"'):
+            text = self.get_element_text(AuthCookiesLocators.guest_auth)
+            assert text.endswith('guest'), 'Expected Guest authentication to be successful'
 
-    def get_and_save_cookies(self) -> None:
+    def click_logout_button(self) -> None:
+        with allure.step('Кликнуть кнопку "logout"'):
+            self.click_element(AuthCookiesLocators.logout_button)
+
+    def save_cookies_to_file(self) -> None:
         with allure.step('Сохранить cookies в файл'):
-            cookies = self.get_cookies_data()
-            with open("cookies.pkl", "wb") as cookies_file:
-                pickle.dump(cookies, cookies_file)
+            cookie_helper.save_cookies_to_file(self.get_cookies_data())
 
     @staticmethod
     def assert_cookies_file_exists() -> None:
         with allure.step('Проверить, что файл с cookies создан'):
-            cookies_file_path = os_path_join(dirname(abspath(__file__)), 'cookies.pkl')
-            assert isfile(cookies_file_path), 'Cookies file expected to be created'
+            assert cookie_helper.file_exists(), 'Cookies file expected to be created'
 
-    def load_cookies(self) -> None:
+    def delete_cookies(self) -> None:
+        with allure.step('Удалить cookies'):
+            self.delete_cookies_data()
+
+    def load_cookies_from_file(self) -> None:
         with allure.step('Загрузить cookies из файла'):
-            with open("cookies.pkl", "rb") as cookies_file:
-                self.load_cookies_data(pickle.load(cookies_file))
+            self.load_cookies_data(cookie_helper.load_cookies_from_file())
+
+    @staticmethod
+    def delete_cookies_file() -> None:
+        with allure.step('Удалить файл с cookies'):
+            cookie_helper.delete_cookies_file()
+            assert not cookie_helper.file_exists(), 'Cookies file expected to be deleted'

@@ -73,6 +73,9 @@ class BasePage:
     def get_cookies_data(self) -> list:
         return self.driver.get_cookies()
 
+    def delete_cookies_data(self) -> list:
+        return self.driver.delete_all_cookies()
+
     def load_cookies_data(self, cookies: list) -> None:
         for data in cookies:
             self.driver.add_cookie(data)
@@ -87,8 +90,4 @@ class BasePage:
         self.driver.execute_script("arguments[0].blur();", self.get_element_by_locator(locator))
 
     def page_has_scroll(self) -> bool:
-        compare_body_heights = "return document.body.scrollHeight > document.body.clientHeight;"
-        compare_html_heights = "return document.documentElement.scrollHeight > document.documentElement.clientHeight;"
-        if self.driver.execute_script(compare_body_heights) or self.driver.execute_script(compare_html_heights):
-            return True
-        return False
+        return self.driver.execute_script("return document.documentElement.scrollHeight > document.documentElement.clientHeight;")

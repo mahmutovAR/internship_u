@@ -13,8 +13,3 @@ class HeaderData:
 class LoginData:
     username = getenv('LOGIN_USERNAME')
     password = getenv('LOGIN_PASSWORD')
-
-
-class AuthCookiesData:
-    login = getenv('AUTH_COOKIES_LOGIN')
-    password = getenv('AUTH_COOKIES_PASSWORD')
