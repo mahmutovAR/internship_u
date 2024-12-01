@@ -1,4 +1,5 @@
 from .auth_cookies_locators import AuthCookiesLocators
+from .drag_and_drop_page_locators import DragAndDropLocators
 from .homepage_locators import (UniqueElementsLocators, HeaderLocators,
                                 MenuLocators, CertificationLocators,
                                 PopularCoursesLocators, MenuRedirectLocators)

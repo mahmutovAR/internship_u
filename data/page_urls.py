@@ -2,10 +2,16 @@ from os import getenv
 
 
 class PageUrls:
-    homepage = getenv('HOME_PAGE')
-    login_page = getenv('LOGIN_PAGE')
-    registration_page = getenv('REGISTRATION_PAGE')
-    auth_cookies_page = getenv('AUTH_COOKIES_PAGE')
+    # homepage = getenv('HOME_PAGE')
+    # login_page = getenv('LOGIN_PAGE')
+    # registration_page = getenv('REGISTRATION_PAGE')
+    # auth_cookies_page = getenv('AUTH_COOKIES_PAGE')
+    # drag_and_drop_page = getenv('DRAG_AND_DROP_PAGE')
+    homepage = "https://www.way2automation.com/"
+    login_page = "https://www.way2automation.com/angularjs-protractor/registeration/#/login"
+    registration_page = "https://www.way2automation.com/way2auto_jquery/registration.php#load_box"
+    auth_cookies_page = "https://www.sql-ex.ru/"
+    drag_and_drop_page = "https://way2automation.com/way2auto_jquery/droppable.php#load_box"
 
 
 class MenuUrls:

@@ -9,9 +9,7 @@ from dotenv import load_dotenv
 def main():
     load_dotenv()
 
-    os_system('pytest -n 7 --reruns 2 --maxfail=5 --disable-warnings --alluredir=allure-results --clean-alluredir')
-
-    os_system('pytest -n 7 --last-failed --disable-warnings --alluredir=allure-results')
+    os_system('pytest -n 10 --alluredir=allure-results --clean-alluredir')
 
     env_data = [f'os_platform = {platform.system()}\n',
                 f'os_release = {platform.release()}\n',
