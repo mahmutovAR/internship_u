@@ -4,5 +4,6 @@ pytest==8.3.1
 pytest-xdist==3.6.1
 pytest-dependency==0.6.0
 python-dotenv==1.0.1
+pytest-rerunfailures==15.0
 selenium==4.26.1
 webdriver-manager==4.0.2

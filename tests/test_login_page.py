@@ -179,10 +179,11 @@ def test_log_in_invalid(browser: fixture, username: str, password: str, username
         - Кнопка "Login" не активна""")
 @pytest.mark.parametrize('username, password, username_desc, username_error, password_error, username_desc_error',
                          [('ab', 'abcdefg', 'abcdefg', True, False, False),
-                          ('ab', 'ab', 'abcdefg', True, True, False),
-                          ('ab', 'ab', 'ab', True, True, True),
                           ('abcdefg', 'ab', 'abcdefg', False, True, False),
                           ('abcdefg', 'abcdefg', 'ab', False, False, True),
+                          ('abcdefg', 'ab', 'ab', False, True, True),
+                          ('ab', 'abcdefg', 'ab', True, False, True),
+                          ('ab', 'ab', 'abcdefg', True, True, False),
                           ('ab', 'ab', 'ab', True, True, True)])
 def test_log_in_invalid_extended(browser: fixture, username: str, password: str, username_desc: str,
                                  username_error: bool, password_error: bool, username_desc_error: bool):
