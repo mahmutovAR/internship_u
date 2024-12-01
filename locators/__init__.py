@@ -1,3 +1,4 @@
+from .auth_cookies_locators import AuthCookiesLocators
 from .homepage_locators import (UniqueElementsLocators, HeaderLocators,
                                 MenuLocators, CertificationLocators,
                                 PopularCoursesLocators, MenuRedirectLocators)
