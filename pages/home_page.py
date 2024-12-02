@@ -147,7 +147,7 @@ class Certification(Homepage):
 class PopularCourses(Homepage):
     def scroll_to_slider(self) -> None:
         with allure.step('Прокрутить страницу до слайдов'):
-            self.scroll_to_element(PopularCoursesLocators.main)
+            self.scroll_to_element(PopularCoursesLocators.prev_slide)
 
     def get_slide_location(self) -> dict:
         return self.get_element_by_locator(PopularCoursesLocators.slide).location

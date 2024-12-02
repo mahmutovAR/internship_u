@@ -1,2 +1,3 @@
 from .base_generator import BaseGenerator
 from .registration_data_generator import RegistrationDataGenerator
+from .alerts_data_generator import AlertsDataGenerator
