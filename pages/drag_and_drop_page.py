@@ -10,6 +10,9 @@ class DragAndDropPage(BasePage):
         with allure.step('Открыть страницу'):
             self.open_url(PageUrls.drag_and_drop_page)
 
+    def switch_to_iframe(self) -> None:
+        self.switch_to_iframe_by_locator(DragAndDropLocators.iframe)
+
     def check_droppable_label_before_action(self) -> None:
         with allure.step('Проверить текст принимающего элемента до перемещения'):
             expected = 'Drop here'

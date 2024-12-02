@@ -1,7 +1,7 @@
 import allure
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -113,9 +113,9 @@ class BasePage:
         """Checks if page has vertical scroll."""
         return self.driver.execute_script("return document.documentElement.scrollHeight > document.documentElement.clientHeight;")
 
-    def switch_to_iframe(self) -> None:
-        """Switches to iframe"""
-        iframe = self.get_element_by_locator((By.TAG_NAME, 'iframe'))
+    def switch_to_iframe_by_locator(self, locator: tuple[str, str]) -> None:
+        """Switches to iframe by specified locator."""
+        iframe = self.get_element_by_locator(locator)
         self.driver.switch_to.frame(iframe)
 
     def drag_and_drop_element(self, draggable_element: tuple[str, str],
@@ -125,3 +125,25 @@ class BasePage:
         droppable = self.get_element_by_locator(droppable_element)
         actions = ActionChains(self.driver)
         actions.drag_and_drop(draggable, droppable).perform()
+
+    def get_window_handles(self) -> list:
+        """Returns window handles list."""
+        return self.driver.window_handles
+
+    def switch_to_tab(self, tab_id: str) -> None:
+        """Switches to the specified tab."""
+        self.driver.switch_to.window(tab_id)
+
+    def send_keys_to_alert(self, data: str) -> None:
+        """Fills in data into alert input field."""
+        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
+        alert.send_keys(data)
+        alert.accept()
+
+    def enter_login_and_password_to_alert(self, login: str, password: str) -> None:
+        """Fills out alert auth form."""
+        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
+        alert.send_keys(login)
+        alert.send_keys(Keys.TAB)
+        alert.send_keys(password)
+        alert.accept()

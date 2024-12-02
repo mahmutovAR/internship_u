@@ -13,3 +13,8 @@ class HeaderData:
 class LoginData:
     username = getenv('LOGIN_USERNAME')
     password = getenv('LOGIN_PASSWORD')
+
+
+class BasicAuthData:
+    login = getenv('BASIC_AUTH_LOGIN')
+    password = getenv('BASIC_AUTH_PASSWORD')

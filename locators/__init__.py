@@ -5,3 +5,6 @@ from .homepage_locators import (UniqueElementsLocators, HeaderLocators,
                                 PopularCoursesLocators, MenuRedirectLocators)
 from .login_page_locators import LoginLocators
 from .registration_page_locators import RegistrationLocators
+from .tabs_page_locators import TabsLocators
+from .alerts_page_locators import AlertsLocators
+from .basic_auth_page_locators import BasicAuthLocators

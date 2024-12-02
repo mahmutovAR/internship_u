@@ -1,6 +1,6 @@
 import pytest
 
-from data.data_generators import RegistrationDataGenerator
+from data.data_generators import RegistrationDataGenerator, AlertsDataGenerator
 from helpers import cookie_helper
 
 
@@ -8,6 +8,11 @@ from helpers import cookie_helper
 def registration_form_data(request):
     fields = request.param
     yield next(RegistrationDataGenerator().generate_registration_data(**fields))
+
+
+@pytest.fixture
+def alerts_form_data():
+    yield next(AlertsDataGenerator().generate_alert_data())
 
 
 @pytest.fixture
