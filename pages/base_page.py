@@ -1,7 +1,6 @@
 import allure
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -138,12 +137,4 @@ class BasePage:
         """Fills in data into alert input field."""
         alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
         alert.send_keys(data)
-        alert.accept()
-
-    def enter_login_and_password_to_alert(self, login: str, password: str) -> None:
-        """Fills out alert auth form."""
-        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-        alert.send_keys(login)
-        alert.send_keys(Keys.TAB)
-        alert.send_keys(password)
         alert.accept()

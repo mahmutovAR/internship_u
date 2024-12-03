@@ -9,13 +9,13 @@ from pages import BasicAuthPage
 
 @allure.severity(severity_level.NORMAL)
 @allure.epic("Smoke тест")
-@allure.feature("Alert input")
+@allure.feature("Basic Auth")
 @allure.testcase("Задача U13")
-@allure.story("""Нажать "Display Image", ввести логин и пароль""")
-@allure.title("Ввод логина и пароля в всплывающем окно")
+@allure.story("""Открыть страницу, пройти базовую авторизацию""")
+@allure.title("Базовая авторизация")
 @allure.description(
     """
-    Цель: Проверить ввод логина и пароля в всплывающем окно
+    Цель: Проверить базовую авторизацию
 
     Предусловие:
         - Открыть браузер
@@ -23,15 +23,16 @@ from pages import BasicAuthPage
     Шаги:
         1. Открыть страницу
         2. Нажать "Display Image"
-        3. Ввести логин и пароль
+        3. Авторизироваться с корректными "username" и "password"
         4. Проверить, что авторизация прошла успешно
 
     Ожидаемый результат:
-        - После ввода в всплывающем окне логина и пароля, авторизация прошла успешно""")
-@pytest.mark.parametrize('login, password', [(BasicAuthData.login, BasicAuthData.password)])
-def test_alert_log_in(browser: fixture, login: str, password: str):
-    alerts_page = BasicAuthPage(browser)
-    alerts_page.open_page()
-    alerts_page.click_display_image()
-    alerts_page.enter_login_and_password(login, password)
-    alerts_page.assert_authorization()
+        - Базовая авторизация прошла успешно""")
+@pytest.mark.parametrize('username, password', [(BasicAuthData.username, BasicAuthData.password)])
+def test_basic_auth(browser: fixture, username: str, password: str):
+    basic_auth = BasicAuthPage(browser)
+    basic_auth.open_page()
+    basic_auth.click_display_image()
+    status_code = basic_auth.log_in(username, password)
+    with allure.step('Проверить, что авторизация прошла успешно'):
+        assert status_code == 200, f'Expected status code 200, but got {status_code}'

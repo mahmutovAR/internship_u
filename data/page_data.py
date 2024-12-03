@@ -16,5 +16,5 @@ class LoginData:
 
 
 class BasicAuthData:
-    login = getenv('BASIC_AUTH_LOGIN')
+    username = getenv('BASIC_AUTH_USERNAME')
     password = getenv('BASIC_AUTH_PASSWORD')

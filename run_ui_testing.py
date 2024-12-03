@@ -9,12 +9,10 @@ from dotenv import load_dotenv
 def main():
     load_dotenv()
 
-    os_system('pytest tests/test_basic_auth.py')
-
-    # os_system('pytest -n 10 --alluredir=allure-results --clean-alluredir')
-    # create_env_properties_file()
-    # os_system('allure generate allure-report --clean --single-file allure-results')
-    # open_report(os_path_join('allure-report', 'index.html'))
+    os_system('pytest --alluredir=allure-results --clean-alluredir')
+    create_env_properties_file()
+    os_system('allure generate allure-report --clean --single-file allure-results')
+    open_report(os_path_join('allure-report', 'index.html'))
 
 
 def create_env_properties_file():

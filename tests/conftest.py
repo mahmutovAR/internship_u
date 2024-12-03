@@ -13,7 +13,7 @@ pytest_plugins = 'tests.fixtures'
 @pytest.fixture(scope="function")
 def browser():
     options = Options()
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     driver.set_window_size(1920, 1080)

@@ -1,4 +1,6 @@
 import allure
+import requests
+from requests.auth import HTTPBasicAuth
 
 from data import PageUrls
 from locators import BasicAuthLocators
@@ -14,13 +16,8 @@ class BasicAuthPage(BasePage):
         with allure.step('Нажать "Display Image"'):
             self.click_element(BasicAuthLocators.display_image)
 
-    # def switch_to_iframe(self) -> None:
-    #     self.switch_to_iframe_by_locator(AlertsLocators.iframe)
-
-    def enter_login_and_password(self, login: str, password: str) -> None:
-        with allure.step('Ввести логин и пароль"'):
-            self.enter_login_and_password_to_alert(login, password)
-
-    def assert_authorization(self) -> None:
-        with allure.step('Проверить, что авторизация прошла успешно'):
-            pass
+    @staticmethod
+    def log_in(username: str, password: str) -> int:
+        with allure.step('Авторизироваться с корректными "username" и "password"'):
+            response = requests.get(PageUrls.basic_auth_page, auth=HTTPBasicAuth(username, password))
+            return response.status_code
