@@ -14,9 +14,9 @@ pytest_plugins = 'tests.fixtures'
 def browser():
     options = Options()
     options.add_argument("--headless")
+    options.add_argument("--window-size=1920x1080")
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
-    driver.set_window_size(1600, 1200)
     yield driver
     driver.quit()
 

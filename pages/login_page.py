@@ -124,4 +124,3 @@ class LoginPage(BasePage):
         with allure.step('Проверить наличие поля ввода "Username *"'):
             username_desc_label = self.get_field_label(LoginLocators.username_desc_2)
             assert username_desc_label == 'Username *', f'Expected label is "Username *", but got {username_desc_label}'
-

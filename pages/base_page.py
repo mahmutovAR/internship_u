@@ -69,3 +69,25 @@ class BasePage:
         actions = ActionChains(self.driver)
         element = self.get_element_by_locator(locator)
         actions.move_to_element(element).perform()
+
+    def get_cookies_data(self) -> list:
+        return self.driver.get_cookies()
+
+    def delete_cookies_data(self) -> list:
+        return self.driver.delete_all_cookies()
+
+    def load_cookies_data(self, cookies: list) -> None:
+        for data in cookies:
+            self.driver.add_cookie(data)
+
+    def refresh_page(self) -> None:
+        self.driver.refresh()
+
+    def get_active_element(self) -> WebElement:
+        return self.driver.switch_to.active_element
+
+    def blur_element(self, locator: tuple[str, str]) -> None:
+        self.driver.execute_script("arguments[0].blur();", self.get_element_by_locator(locator))
+
+    def page_has_scroll(self) -> bool:
+        return self.driver.execute_script("return document.documentElement.scrollHeight > document.documentElement.clientHeight;")
