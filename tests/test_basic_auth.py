@@ -11,29 +11,28 @@ from pages import BasicAuthPage
 @allure.epic("Smoke тест")
 @allure.feature("Basic Auth")
 @allure.testcase("Задача U13")
-@allure.story("""Открыть страницу, пройти базовую аутентификацию""")
-@allure.title("Базовая аутентификация")
+@allure.story("""Открыть страницу, пройти базовую авторизацию""")
+@allure.title("Базовая авторизация")
 @allure.description(
     """
-    Цель: Проверить базовую аутентификацию
+    Цель: Проверить базовую авторизацию
 
     Предусловие:
         - Открыть браузер
 
     Шаги:
-        1. Открыть страницу со встроенным username и password для базовой аутентификации
-        2. Проверить, что "Authenticated Image" не отображается
+        1. Открыть страницу
         2. Нажать "Display Image"
-        3. Проверить, что "Authenticated Image" не отображается
+        3. Авторизироваться с корректными "username" и "password"
+        4. Проверить, что авторизация прошла успешно
 
     Ожидаемый результат:
-        - Базовая аутентификация прошла успешно""")
+        - Базовая авторизация прошла успешно""")
 @pytest.mark.parametrize('username, password', [(BasicAuthData.username, BasicAuthData.password)])
 def test_basic_auth(browser: fixture, username: str, password: str):
     basic_auth = BasicAuthPage(browser)
-    basic_auth.open_page(username, password)
-    with allure.step('Проверить, что "Authenticated Image" не отображается'):
-        assert not basic_auth.auth_image_is_visible(), 'Authenticated Image expected not to be visible'
+    basic_auth.open_page()
     basic_auth.click_display_image()
-    with allure.step('Проверить, что "Authenticated Image" отображается'):
-        assert basic_auth.auth_image_is_visible(), 'Authenticated Image expected to be visible'
+    status_code = basic_auth.log_in(username, password)
+    with allure.step('Проверить, что авторизация прошла успешно'):
+        assert status_code == 200, f'Expected status code 200, but got {status_code}'
