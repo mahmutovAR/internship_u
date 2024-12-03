@@ -4,6 +4,7 @@ from allure import severity_level
 from pytest import fixture
 
 from pages import AuthCookiesPage
+from helpers import cookie_helper
 
 
 @allure.severity(severity_level.BLOCKER)
@@ -39,10 +40,13 @@ def test_log_in_and_save_cookies(browser: fixture):
     auth_page.check_auth_form()
     auth_page.click_enter_without_login_button()
     auth_page.check_guest_authentication()
-    auth_page.save_cookies_to_file()
+    with allure.step('Сохранить cookies в файл'):
+        cookies = auth_page.get_cookies_data()
+        cookie_helper.save_cookies_to_file(cookies)
     auth_page.click_logout_button()
     auth_page.check_auth_form()
-    auth_page.assert_cookies_file_exists()
+    with allure.step('Проверить, что файл с cookies создан'):
+        assert cookie_helper.file_exists(), 'Cookies file expected to be created'
 
 
 @allure.severity(severity_level.CRITICAL)
@@ -74,14 +78,15 @@ def test_log_in_and_save_cookies(browser: fixture):
     Ожидаемый результат:
         - Авторизация прошла успешно""")
 @pytest.mark.dependency(depends=["test_log_in_and_save_cookies"])
-def test_log_in_with_cookies(browser: fixture):
+def test_log_in_with_cookies(browser: fixture, delete_cookies_file: fixture):
     auth_page = AuthCookiesPage(browser)
     auth_page.open_auth_page()
     auth_page.check_auth_form()
     auth_page.delete_cookies()
-    auth_page.load_cookies_from_file()
+    with allure.step('Загрузить cookies из файла'):
+        auth_page.load_cookies_data(cookie_helper.load_cookies_from_file())
     auth_page.refresh_page()
     auth_page.check_guest_authentication()
     auth_page.click_logout_button()
     auth_page.check_auth_form()
-    auth_page.delete_cookies_file()
+    delete_cookies_file()

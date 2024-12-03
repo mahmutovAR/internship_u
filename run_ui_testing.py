@@ -9,8 +9,17 @@ from dotenv import load_dotenv
 def main():
     load_dotenv()
 
-    os_system('pytest tests/ -n 4 --alluredir=allure-results --clean-alluredir')
+    os_system('pytest tests/test_basic_auth.py')
 
+    # os_system('pytest -n 10 --alluredir=allure-results --clean-alluredir')
+    # create_env_properties_file()
+    # os_system('allure generate allure-report --clean --single-file allure-results')
+    # open_report(os_path_join('allure-report', 'index.html'))
+
+
+def create_env_properties_file():
+    """Creates file with main information about the environment
+    in which the tests were executed."""
     env_data = [f'os_platform = {platform.system()}\n',
                 f'os_release = {platform.release()}\n',
                 f'python_version = {platform.python_version()}']
@@ -18,10 +27,6 @@ def main():
     with open(os_path_join('allure-results', 'environment.properties'), 'w') as env_file:
         for line in env_data:
             env_file.write(line)
-
-    os_system('allure generate allure-report --clean --single-file allure-results')
-
-    open_report(os_path_join('allure-report', 'index.html'))
 
 
 if __name__ == '__main__':
