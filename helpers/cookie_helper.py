@@ -6,7 +6,8 @@ from os.path import join as os_path_join
 
 class CookieHelper:
     def __init__(self):
-        self.file_path = os_path_join(getcwd(), 'cookies.pkl')
+        # self.file_path = os_path_join(getcwd(), 'cookies.pkl')
+        self.file_path = 'cookies.pkl'
 
     def save_cookies_to_file(self, cookies: list) -> None:
         """Saves cookies to file."""
