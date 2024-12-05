@@ -13,7 +13,7 @@ python3 -m pip install -r requirements.txt
 ***
 
 
-## Run `run_ui_testing.py` to test **[www.way2automation.com](https://www.way2automation.com/)**
+## Run `./run_testing.sh` in the root directory to run tests and generate Allure report
 ***
 
 

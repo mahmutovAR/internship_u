@@ -1,11 +1,20 @@
 from os import getenv
 
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 class PageUrls:
     homepage = getenv('HOME_PAGE')
     login_page = getenv('LOGIN_PAGE')
     registration_page = getenv('REGISTRATION_PAGE')
+
     auth_cookies_page = getenv('AUTH_COOKIES_PAGE')
+    alt_auth_cookies_page = getenv('ALT_AUTH_COOKIES_PAGE')
+    alt_auth_cookies_logged_page = getenv('ALT_AUTH_COOKIES_LOGGED_PAGE')
+
     drag_and_drop_page = getenv('DRAG_AND_DROP_PAGE')
     tabs_page = getenv('TABS_PAGE')
     alerts_page = getenv('ALERTS_PAGE')
@@ -18,6 +27,8 @@ class PageUrls:
     # tabs_page = "https://way2automation.com/way2auto_jquery/frames-and-windows.php#load_box"
     # alerts_page = "http://way2automation.com/way2auto_jquery/alert.php"
     # basic_auth_page = "https://www.httpwatch.com/httpgallery/authentication/#showExample10"
+    # alt_auth_cookies_page = "https://the-internet.herokuapp.com/login"
+    # alt_auth_cookies_logged_page = "https://the-internet.herokuapp.com/secure"
 
 
 class MenuUrls:
