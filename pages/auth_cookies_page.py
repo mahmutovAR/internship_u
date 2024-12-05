@@ -17,10 +17,16 @@ class AuthCookiesPage(BasePage):
             self.element_is_visible(AuthCookiesLocators.enter_button)
             self.element_is_visible(AuthCookiesLocators.enter_without_login)
 
-    def click_enter_without_login_button(self) -> None:
-        with allure.step('Кликнуть кнопку "Enter without login"'):
-            self.send_keys_to_element(AuthCookiesLocators.login, "user")
-            self.send_keys_to_element(AuthCookiesLocators.password, "dstu")
+    def fill_username(self, username: str) -> None:
+        with allure.step('Ввести данные в поле "Username"'):
+            self.send_keys_to_element(AuthCookiesLocators.login, username)
+
+    def fill_password(self, password: str) -> None:
+        with allure.step('Ввести данные в поле "Password"'):
+            self.send_keys_to_element(AuthCookiesLocators.password, password)
+
+    def click_login(self) -> None:
+        with allure.step('Кликнуть кнопку "Enter"'):
             self.click_element(AuthCookiesLocators.enter_button)
 
     def check_guest_authentication(self) -> None:

@@ -3,7 +3,7 @@ import pytest
 from allure import severity_level
 from pytest import fixture
 
-from data import AltAuthCookiesData
+from data import AuthCookiesData, AltAuthCookiesData
 from pages import AuthCookiesPage, AltAuthCookiesPage
 from helpers import cookie_helper
 
@@ -24,12 +24,14 @@ from helpers import cookie_helper
     Шаги:
         1. Открыть страницу с формой
         2. Проверить, что доступны поля авторизации
-        3. Кликнуть кнопку "Enter without login"
-        4. Проверить, что авторизация прошла под именем "guest"
-        5. Сохранить cookies в файл
-        6. Кликнуть кнопку "logout"
-        7. Проверить, что доступны поля авторизации
-        8. Проверить, что файл с cookies создан
+        3. Ввести данные в поле "Username"
+        4. Ввести данные в поле "Password"
+        5. Кликнуть кнопку "Enter"
+        6. Проверить, что авторизация прошла под именем "guest"
+        7. Сохранить cookies в файл
+        8. Кликнуть кнопку "logout"
+        9. Проверить, что доступны поля авторизации
+        10. Проверить, что файл с cookies создан
 
     Ожидаемый результат:
         - Авторизация прошла успешно
@@ -39,7 +41,9 @@ def test_log_in_and_save_cookies(browser: fixture):
     auth_page = AuthCookiesPage(browser)
     auth_page.open_auth_page()
     auth_page.check_auth_form()
-    auth_page.click_enter_without_login_button()
+    auth_page.fill_username(AuthCookiesData.username)
+    auth_page.fill_password(AuthCookiesData.password)
+    auth_page.click_login()
     auth_page.check_guest_authentication()
     with allure.step('Сохранить cookies в файл'):
         cookies = auth_page.get_cookies_data()
@@ -108,7 +112,7 @@ def test_load_cookies(browser: fixture, delete_cookies_file: fixture):
     Шаги:
         1. Открыть страницу с формой
         2. Проверить, что доступны поля авторизации
-        3. Ввести логин в поле "Username"
+        3. Ввести данные в поле "Username"
         4. Ввести данные в поле "Password"
         5. Кликнуть кнопку "Login"
         6. Проверить, что авторизация прошла успешно

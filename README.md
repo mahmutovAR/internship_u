@@ -13,19 +13,24 @@ python3 -m pip install -r requirements.txt
 ***
 
 
-## Run `./run_testing.sh` in the root directory to run tests and generate Allure report
+## To run `pytest`, rerun failed tests, and generate an `Allure` report
+```commandline
+./run_pytest_with_rerun_and_allure.sh
+```
 ***
 
 
 ### Files and directories:
 - `allure-report/index.html` allure report
 - `allure-results/` test results directory  
-**Note:** These directories will be created after running `run_ui_testing.py`
+**Note:** These directories will be created after running testing script
 
 * `data/` module with data (links, contact data, urls)
+* `helpers/` helpers modules
 * `locators/` locators modules
 * `pages/` web pages modules
 * `tests/` test modules
+* `create_env_properties_file.py` info file generating script 
 * `requirements.txt` required packages
-* `run_task_ui.py` UI testing script
+* `run_pytest_with_rerun_and_allure.sh` testing script
 ***

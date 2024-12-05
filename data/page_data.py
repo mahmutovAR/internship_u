@@ -20,6 +20,11 @@ class LoginData:
     password = getenv('LOGIN_PASSWORD')
 
 
+class AuthCookiesData:
+    username = getenv('AUTH_COOKIES_USERNAME')
+    password = getenv('AUTH_COOKIES_PASSWORD')
+
+
 class AltAuthCookiesData:
     username = getenv('ALT_AUTH_COOKIES_USERNAME')
     password = getenv('ALT_AUTH_COOKIES_PASSWORD')
