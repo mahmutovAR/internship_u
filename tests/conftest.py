@@ -3,8 +3,6 @@ import pytest
 from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 pytest_plugins = 'tests.fixtures'
@@ -15,8 +13,8 @@ def browser():
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
+    hub_url = "http://localhost:4444/wd/hub"
+    driver = webdriver.Remote(command_executor=hub_url, options=options)
     driver.set_window_size(1920, 1080)
     yield driver
     driver.quit()

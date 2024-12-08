@@ -13,18 +13,14 @@ python3 -m pip install -r requirements.txt
 ***
 
 
-## To run `pytest`, rerun failed tests, and generate an `Allure` report
+## To run `pytest` tests using Selenium Grid
 ```commandline
-./run_pytest_with_rerun_and_allure.sh
+./run_tests_with_grid.sh
 ```
 ***
 
 
 ### Files and directories:
-- `allure-report/index.html` allure report
-- `allure-results/` test results directory  
-**Note:** These directories will be created after running testing script
-
 * `data/` module with data (links, contact data, urls)
 * `helpers/` helpers modules
 * `locators/` locators modules
@@ -32,5 +28,5 @@ python3 -m pip install -r requirements.txt
 * `tests/` test modules
 * `create_env_properties_file.py` info file generating script 
 * `requirements.txt` required packages
-* `run_pytest_with_rerun_and_allure.sh` testing script
+* `run_tests_with_grid.sh` testing script
 ***
