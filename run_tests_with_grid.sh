@@ -15,7 +15,13 @@ NODE_PID=$!
 sleep 2
 
 echo "Running pytest tests"
-pytest -n 4
+pytest -n 4 --alluredir=allure-results --clean-alluredir
+
+echo "Creating file with main information about the environment"
+python3 create_env_properties_file.py
+
+echo "Generating Allure report"
+allure generate allure-report --clean --single-file allure-results
 
 echo "Stopping Selenium Grid"
 kill $HUB_PID
