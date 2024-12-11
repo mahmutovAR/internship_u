@@ -35,4 +35,4 @@ def test_basic_auth(browser: fixture, username: str, password: str):
     basic_auth.click_display_image()
     status_code = basic_auth.log_in(username, password)
     with allure.step('Проверить, что авторизация прошла успешно'):
-        assert status_code == 200, f'Expected status code 200, but got {status_code}'
+        assert status_code == 200, f'Expected status code 200, but got "{status_code}"'

@@ -1,23 +1,26 @@
 import allure
 import pytest
 from allure_commons.types import AttachmentType
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+
+from .driver_factory import DriverFactory
 
 
 pytest_plugins = 'tests.fixtures'
 
 
 @pytest.fixture(scope="function")
-def browser():
-    options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    hub_url = "http://localhost:4444/wd/hub"
-    driver = webdriver.Remote(command_executor=hub_url, options=options)
+def browser(request):
+    browser_name = request.config.getoption("--browser").lower()
+    grid = request.config.getoption("--grid")
+    driver = DriverFactory(browser_name, grid).get_driver()
     driver.set_window_size(1920, 1080)
     yield driver
     driver.quit()
+
+
+def pytest_addoption(parser):
+    parser.addoption("--browser", action="store", default="chrome")
+    parser.addoption("--grid", action="store_true", default=False)
 
 
 @pytest.hookimpl(tryfirst=True)
@@ -29,3 +32,5 @@ def pytest_runtest_makereport(item, call):
                 allure.attach(driver.get_screenshot_as_png(),
                               name='Test failure screenshot',
                               attachment_type=AttachmentType.PNG)
+
+
