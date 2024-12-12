@@ -2,7 +2,7 @@ import allure
 import pytest
 from allure_commons.types import AttachmentType
 
-from .driver_factory import DriverFactory
+from helpers.driver_factory import DriverFactory
 
 
 pytest_plugins = 'tests.fixtures'
