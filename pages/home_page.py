@@ -17,7 +17,7 @@ class Homepage(BasePage):
 
     def check_link_to_be_clickable(self, locator: tuple[str, str]) -> None:
         link = self.get_clickable_element(locator)
-        assert link, f'Expected {link} to be clickable'
+        assert link, f'Expected "{link}" to be clickable'
 
     def check_page_title(self, expected_title: str) -> None:
         with allure.step('Проверить значение "TITLE"'):
@@ -40,7 +40,7 @@ class Header(Homepage):
         with allure.step('Проверить корректность контактных данных'):
             for contact_locator, expected_data in zip(HeaderLocators.contacts, HeaderData.all_items):
                 data = self.get_element_text(contact_locator)
-                assert data == expected_data, f'Expected "{expected_data}" data, but got {data}'
+                assert data == expected_data, f'Expected "{expected_data}" data, but got "{data}"'
 
 
 class Menu(Homepage):
@@ -70,14 +70,14 @@ class Menu(Homepage):
         with allure.step('Проверить переход на страницу'):
             curr_url = self.get_current_url()
             expected_url = MenuUrls.appium_python
-            assert curr_url == expected_url, f'Expected redirection to {expected_url}, but got {curr_url}'
+            assert curr_url == expected_url, f'Expected redirection to "{expected_url}", but got "{curr_url}"'
 
     def appium_python_elements_are_active(self) -> None:
         with allure.step('Проверить корректность отображения элементов страницы'):
             link_1 = self.get_clickable_element(MenuRedirectLocators.appium_python_link_1)
             link_2 = self.get_clickable_element(MenuRedirectLocators.appium_python_link_2)
-            assert link_1, f'Expected {link_1} to be clickable'
-            assert link_2, f'Expected {link_2} to be clickable'
+            assert link_1, f'Expected "{link_1}" to be clickable'
+            assert link_2, f'Expected "{link_2}" to be clickable'
 
     def hover_over_video_tutorial(self) -> None:
         with allure.step('Навести курсор на вкладку меню "Video Tutorial"'):
@@ -91,7 +91,7 @@ class Menu(Homepage):
         with allure.step('Проверить переход на страницу'):
             curr_url = self.get_current_url()
             expected_url = MenuUrls.spring_boot
-            assert curr_url == expected_url, f'Expected redirection to {expected_url}, but got {curr_url}'
+            assert curr_url == expected_url, f'Expected redirection to "{expected_url}", but got "{curr_url}"'
 
     def spring_boot_elements_are_active(self) -> None:
         with allure.step('Проверить корректность отображения элементов страницы'):
@@ -108,11 +108,11 @@ class Menu(Homepage):
 class Certification(Homepage):
     def check_header(self, heading_locator: tuple[str, str], expected_text: str) -> None:
         heading = self.get_nested_element_text(heading_locator, (By.TAG_NAME, 'h3'))
-        assert heading == expected_text, f'Expected text {expected_text}, but got {heading}'
+        assert heading == expected_text, f'Expected text "{expected_text}", but got "{heading}"'
 
     def check_link(self, link_locator: tuple[str, str], expected_link: str) -> None:
         link = self.get_nested_element_link(link_locator, (By.TAG_NAME, 'a'))
-        assert link == expected_link, f'Expected text {expected_link}, but got {link}'
+        assert link == expected_link, f'Expected text "{expected_link}", but got "{link}"'
 
     def check_headers_of_block_elements(self) -> None:
         with allure.step('Проверить заголовки элементов блока'):

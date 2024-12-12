@@ -17,7 +17,7 @@ class DragAndDropPage(BasePage):
         with allure.step('Проверить текст принимающего элемента до перемещения'):
             expected = 'Drop here'
             text = self.get_element_text(DragAndDropLocators.droppable_area)
-            assert text == expected, f'Expected label "{expected}", but got {text}'
+            assert text == expected, f'Expected label "{expected}", but got "{text}"'
 
     def drag_and_drop_action(self) -> None:
         with allure.step('Переместить элемент в принимающий'):
@@ -27,4 +27,4 @@ class DragAndDropPage(BasePage):
         with allure.step('Проверить текст принимающего элемента после перемещения'):
             expected = 'Dropped!'
             text = self.get_element_text(DragAndDropLocators.droppable_area)
-            assert text == expected, f'Expected label "{expected}", but got {text}'
+            assert text == expected, f'Expected label "{expected}", but got "{text}"'

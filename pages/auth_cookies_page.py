@@ -32,7 +32,7 @@ class AuthCookiesPage(BasePage):
     def check_guest_authentication(self) -> None:
         with allure.step('Проверить, что авторизация прошла под именем "guest"'):
             text = self.get_element_text(AuthCookiesLocators.guest_auth)
-            assert text.endswith('guest'), 'Expected Guest authentication to be successful'
+            assert text.endswith('guest'), 'Expected "Guest authentication" to be successful'
 
     def click_logout_button(self) -> None:
         with allure.step('Кликнуть кнопку "logout"'):

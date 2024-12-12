@@ -101,7 +101,7 @@ class RegistrationPage(BasePage):
 
     def assert_focus_on_element(self) -> None:
         with allure.step('Проверить, что фокус на поле ввода'):
-            assert self.get_element_by_locator(RegistrationLocators.first_name) == self.get_active_element(), 'Excepted element is active'
+            assert self.get_element_by_locator(RegistrationLocators.first_name) == self.get_active_element(), 'Expected element is active'
 
     def blur_first_name_field(self) -> None:
         with allure.step('Убрать фокус из поля ввода с помощью JavaScriptExecutor'):
@@ -109,7 +109,7 @@ class RegistrationPage(BasePage):
 
     def assert_element_not_active(self) -> None:
         with allure.step('Проверить, что поле ввода не в фокусе'):
-            assert self.get_element_by_locator(RegistrationLocators.first_name) != self.get_active_element(), 'Excepted element is not active'
+            assert self.get_element_by_locator(RegistrationLocators.first_name) != self.get_active_element(), 'Expected element is not active'
 
     def assert_page_scroll(self) -> None:
         with allure.step('Проверить наличие скролла на странице'):

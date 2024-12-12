@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Running all tests, failed tests rerun 2 times"
-pytest --reruns 2 --maxfail=5 --disable-warnings --alluredir=allure-results --clean-alluredir
+pytest -n 5 --reruns 2 --maxfail=5 --disable-warnings --alluredir=allure-results --clean-alluredir --browser="$1" "$2"
 
 echo "Running failed tests"
 pytest --last-failed --disable-warnings --alluredir=allure-results
