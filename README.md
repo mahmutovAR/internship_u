@@ -43,7 +43,7 @@ By default, `./run_ui_testing.sh` command runs tests in `Chrome` without Seleniu
 **Note:** These directories will be created after running tests script
 
 * `data/` module with data (links, contact data, urls, browser driver paths)
-* `helpers/` helpers modules (cookie helper)
+* `helpers/` helpers modules (cookie helper, driver factory)
 * `locators/` locators modules
 * `pages/` web pages modules
 * `tests/` test modules

@@ -1,4 +1,3 @@
-import allure
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
@@ -33,8 +32,7 @@ class BasePage:
 
     def get_page_title(self) -> str:
         """Returns current page title."""
-        with allure.step('Получить значение "TITLE"'):
-            return self.driver.title
+        return self.driver.title
 
     def get_element_text(self, locator: tuple[str, str]) -> str:
         """Returns specified page element text."""
@@ -95,10 +93,6 @@ class BasePage:
         """Loads cookies."""
         for data in cookies:
             self.driver.add_cookie(data)
-
-    def refresh_page(self) -> None:
-        """Refreshes current page."""
-        self.driver.refresh()
 
     def get_active_element(self) -> WebElement:
         """Switches to page active element and returns it."""
