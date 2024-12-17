@@ -20,3 +20,8 @@ def delete_cookies_file():
     yield
     if cookie_helper.file_exists():
         cookie_helper.remove_cookies_file()
+
+
+@pytest.fixture
+def data_storage():
+    return {}

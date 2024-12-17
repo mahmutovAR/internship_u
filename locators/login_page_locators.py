@@ -12,7 +12,7 @@ class LoginLocators:
     username_desc_err = (By.ID, 'formly_1_input_username_0_description')
 
     login_button = (By.XPATH, "//button[@ng-click='Auth.login()']")
-    logout_link = (By.XPATH, '//a[@href="#/login"]')
+    logout_link = (By.XPATH, '//a[contains(string(), "Logout")]')
 
     auth_success = (By.XPATH, """//p[contains(string(), "You're logged in!!")]""")
     auth_error = (By.XPATH, '//div[contains(@class, "alert alert-danger")]')
