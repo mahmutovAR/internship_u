@@ -78,7 +78,8 @@ def fill_in_form_field(reg_form: fixture, email: str):
 
 @when(parsers.parse('Choose picture: {picture_name}'))
 def fill_in_form_field(reg_form: fixture, picture_name: str):
-    reg_form.choose_picture(os_path_join(dirname(abspath(__file__)), 'picture', picture_name))
+    dir_path = dirname(abspath(__file__))
+    reg_form.choose_picture(os_path_join(dirname(dir_path), 'picture', picture_name))
 
 
 @when(parsers.parse('Fill about: {about}'))

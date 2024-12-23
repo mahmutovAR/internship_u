@@ -24,16 +24,38 @@ To run autotests in a specified browser and with or without Selenium Grid,
 run the `run_ui_testing.sh` script with the appropriate `{browser name}` and `grid` (if it should be used) arguments
 
 For example, to run tests in `Firefox` without Selenium Grid, run:
-```commandline
+```
 ./run_ui_testing.sh firefox
 ```
 And to run tests in `Edge` with Selenium Grid, run:
-```commandline
+```
 ./run_ui_testing.sh edge grid
 ```
 By default, `./run_ui_testing.sh` command runs tests in `Chrome` without Selenium Grid
 
 **Note:** UI testing script reruns twice failed tests and generates an `Allure` report
+
+## To run BDD tests
+1. Uninstall `allure-pytest==2.13.5`
+2. Install `allure-pytest-bdd==2.13.5` and `pytest-bdd==8.1.0`
+3. Edit `run_pytest_with_rerun_and_allure.sh` script, remove `--ignore=tests/bdd/` from `pytest` commands  
+Example of the script:
+```
+#!/bin/bash
+
+echo "Running all tests, failed tests rerun 2 times"
+pytest -n 5 --reruns 2 --maxfail=5 --disable-warnings --alluredir=allure-results --clean-alluredir --browser="$1" "$2"
+
+echo "Running failed tests"
+pytest --last-failed --disable-warnings --alluredir=allure-results
+
+echo "Creating file with main information about the environment"
+python3 create_env_properties_file.py
+
+echo "Generating Allure report"
+allure generate allure-report --clean --single-file allure-results
+```
+4. Run tests by using `run_ui_testing.sh` script
 ***
 
 
