@@ -32,5 +32,3 @@ def pytest_runtest_makereport(item, call):
                 allure.attach(driver.get_screenshot_as_png(),
                               name='Test failure screenshot',
                               attachment_type=AttachmentType.PNG)
-
-
