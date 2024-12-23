@@ -24,11 +24,11 @@ To run autotests in a specified browser and with or without Selenium Grid,
 run the `run_ui_testing.sh` script with the appropriate `{browser name}` and `grid` (if it should be used) arguments
 
 For example, to run tests in `Firefox` without Selenium Grid, run:
-```commandline
+```
 ./run_ui_testing.sh firefox
 ```
 And to run tests in `Edge` with Selenium Grid, run:
-```commandline
+```
 ./run_ui_testing.sh edge grid
 ```
 By default, `./run_ui_testing.sh` command runs tests in `Chrome` without Selenium Grid
