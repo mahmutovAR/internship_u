@@ -2,14 +2,54 @@ name: Run UI tests, generate and publish Allure report on GitHub Pages
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
   tests_and_report:
     runs-on: ubuntu-24.04
     steps:
+      - name: Set Env Vars
+        env:
+          HOME_PAGE: ${{ secrets.HOME_PAGE }}
+          REGISTRATION_PAGE: ${{ secrets.REGISTRATION_PAGE }}
+          DRAG_AND_DROP_PAGE: ${{ secrets.DRAG_AND_DROP_PAGE }}
+          TABS_PAGE: ${{ secrets.TABS_PAGE }}
+          ALERTS_PAGE: ${{ secrets.ALERTS_PAGE }}
+          HEADER_PHONE_1: ${{ secrets.HEADER_PHONE_1 }}
+          HEADER_PHONE_2: ${{ secrets.HEADER_PHONE_2 }}
+          HEADER_PHONE_3: ${{ secrets.HEADER_PHONE_3 }}
+          HEADER_SKYPE: ${{ secrets.HEADER_SKYPE }}
+          HEADER_EMAIL: ${{ secrets.HEADER_EMAIL }}
+          MENU_ALL_COURSES: ${{ secrets.MENU_ALL_COURSES }}
+          MENU_VIDEO_TUTORIAL: ${{ secrets.MENU_VIDEO_TUTORIAL }}
+          MENU_RESOURCES: ${{ secrets.MENU_RESOURCES }}
+          MENU_CAREERS: ${{ secrets.MENU_CAREERS }}
+          MENU_LIFETIME_MEMBERSHIP: ${{ secrets.MENU_LIFETIME_MEMBERSHIP }}
+          MENU_BLOG: ${{ secrets.MENU_BLOG }}
+          MENU_FORUM: ${{ secrets.MENU_FORUM }}
+          MENU_MEMBER_LOGIN: ${{ secrets.MENU_MEMBER_LOGIN }}
+          MENU_ONLINE_TRAINING: ${{ secrets.MENU_ONLINE_TRAINING }}
+          MENU_CORPORATE_TRAINING: ${{ secrets.MENU_CORPORATE_TRAINING }}
+          MENU_ALL_COURSES_APPIUM_PYTHON: ${{ secrets.MENU_ALL_COURSES_APPIUM_PYTHON }}
+          MENU_VIDEO_TUTORIAL_SPRING: ${{ secrets.MENU_VIDEO_TUTORIAL_SPRING }}
+          LOGIN_PAGE: ${{ secrets.LOGIN_PAGE }}
+          LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+          BASIC_AUTH_PAGE: ${{ secrets.BASIC_AUTH_PAGE }}
+          BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
+          BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          AUTH_COOKIES_PAGE: ${{ secrets.AUTH_COOKIES_PAGE }}
+          AUTH_COOKIES_USERNAME: ${{ secrets.AUTH_COOKIES_USERNAME }}
+          AUTH_COOKIES_PASSWORD: ${{ secrets.AUTH_COOKIES_PASSWORD }}
+          ALT_AUTH_COOKIES_PAGE: ${{ secrets.ALT_AUTH_COOKIES_PAGE }}
+          ALT_AUTH_COOKIES_LOGGED_PAGE: ${{ secrets.ALT_AUTH_COOKIES_LOGGED_PAGE }}
+          ALT_AUTH_COOKIES_USERNAME: ${{ secrets.ALT_AUTH_COOKIES_USERNAME }}
+          ALT_AUTH_COOKIES_PASSWORD: ${{ secrets.ALT_AUTH_COOKIES_PASSWORD }}
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
