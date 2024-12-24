@@ -55,11 +55,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Print Env Var
-        run: |
-          echo "HOME_PAGE: $HOME_PAGE"
-          echo "REGISTRATION_PAGE: $REGISTRATION_PAGE"
-
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
