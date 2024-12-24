@@ -1,0 +1,1 @@
+[{"uid":"62a12571969898b5","name":"Авторизация на странице the-internet.herokuapp.com","time":{"start":1735065042240,"stop":1735065054014,"duration":11774},"status":"passed","severity":"critical"},{"uid":"470f497097579ed1","name":"Авторизация на странице Login Page","time":{"start":1735065090808,"stop":1735065092526,"duration":1718},"status":"passed","severity":"blocker"}]
