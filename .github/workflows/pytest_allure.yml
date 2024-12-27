@@ -11,7 +11,7 @@ on:
 jobs:
   tests_and_report:
     runs-on: ubuntu-24.04
-    
+
     env:
       HOME_PAGE: ${{ vars.HOME_PAGE }}
       REGISTRATION_PAGE: ${{ vars.REGISTRATION_PAGE }}
@@ -48,10 +48,18 @@ jobs:
       ALT_AUTH_COOKIES_LOGGED_PAGE: ${{ vars.ALT_AUTH_COOKIES_LOGGED_PAGE }}
       ALT_AUTH_COOKIES_USERNAME: ${{ vars.ALT_AUTH_COOKIES_USERNAME }}
       ALT_AUTH_COOKIES_PASSWORD: ${{ vars.ALT_AUTH_COOKIES_PASSWORD }}
-      
-      
+
     steps:
-    
+      - name: Set up xvfb
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
+      - name: Start xvfb
+        run: |
+          export DISPLAY=:99
+          nohup Xvfb :99 &
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
