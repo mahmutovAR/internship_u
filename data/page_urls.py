@@ -19,16 +19,6 @@ class PageUrls:
     tabs_page = getenv('TABS_PAGE')
     alerts_page = getenv('ALERTS_PAGE')
     basic_auth_page = getenv('BASIC_AUTH_PAGE')
-    # homepage = "https://www.way2automation.com/"
-    # login_page = "https://www.way2automation.com/angularjs-protractor/registeration/#/login"
-    # registration_page = "https://www.way2automation.com/way2auto_jquery/registration.php#load_box"
-    # auth_cookies_page = "https://www.sql-ex.ru/"
-    # drag_and_drop_page = "https://way2automation.com/way2auto_jquery/droppable.php#load_box"
-    # tabs_page = "https://way2automation.com/way2auto_jquery/frames-and-windows.php#load_box"
-    # alerts_page = "http://way2automation.com/way2auto_jquery/alert.php"
-    # basic_auth_page = "https://www.httpwatch.com/httpgallery/authentication/#showExample10"
-    # alt_auth_cookies_page = "https://the-internet.herokuapp.com/login"
-    # alt_auth_cookies_logged_page = "https://the-internet.herokuapp.com/secure"
 
 
 class MenuUrls:
