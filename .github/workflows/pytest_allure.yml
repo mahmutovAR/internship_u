@@ -72,7 +72,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run UI tests
-        run: pytest -n 5 --disable-warnings --alluredir=allure-results --ignore=tests/bdd/
+        run: pytest -n 1 --disable-warnings --alluredir=allure-results --ignore=tests/bdd/
 
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.7
