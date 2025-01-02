@@ -74,18 +74,16 @@ jobs:
       - name: Run UI tests
         run: pytest -n 5 --disable-warnings --alluredir=allure-results --ignore=tests/bdd/
 
-      - name: Upload Allure results
-        uses: actions/upload-artifact@v3
-        with:
-          name: ./allure-results
-          path: ./allure-results
+      - name: Merge Allure Results
+        run: allure merge allure-results/ -o allure-merged-results/
 
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
           gh_pages: gh-pages
-          allure_results: ./allure-results
+#          allure_results: ./allure-results
+          allure_results: ./allure-merged-results
           allure_history: ./allure-results
 
       - name: Publish Allure report on GitHub Pages
