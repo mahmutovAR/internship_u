@@ -74,6 +74,12 @@ jobs:
       - name: Run UI tests
         run: pytest -n 5 --disable-warnings --alluredir=allure-results --ignore=tests/bdd/
 
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v3
+        with:
+          name: ./allure-results
+          path: ./allure-results
+
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
