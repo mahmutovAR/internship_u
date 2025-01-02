@@ -1,1 +1,0 @@
-[{"uid":"8fc72d83fba319d9","name":"Авторизация на странице Login Page","time":{"start":1735848987777,"stop":1735848989876,"duration":2099},"status":"passed","severity":"critical"},{"uid":"4141e5400b91961e","name":"Загрузка страницы с Registration Form","time":{"start":1735848978186,"stop":1735848979593,"duration":1407},"status":"passed","severity":"minor"}]
