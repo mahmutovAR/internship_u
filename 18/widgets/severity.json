@@ -1,0 +1,1 @@
+[{"uid":"15f114af04e7c833","name":"Авторизация на странице the-internet.herokuapp.com","time":{"start":1735852208185,"stop":1735852210356,"duration":2171},"status":"passed","severity":"blocker"},{"uid":"bb582328b9ab763f","name":"Ввод текста в всплывающем окно","time":{"start":1735852208209,"stop":1735852210865,"duration":2656},"status":"passed","severity":"normal"}]
