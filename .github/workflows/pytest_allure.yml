@@ -81,6 +81,7 @@ jobs:
           gh_pages: gh-pages
           allure_results: ./allure-results
           allure_history: ./allure-results
+          keep_reports: 300
 
       - name: Publish Allure report on GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
